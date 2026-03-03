@@ -3,30 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memon Custom | Premium Hospitality Hydration</title>
+    <title>Memon Custom | Luxury Event Hydration</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         :root {
-            --primary: #00ff88; 
             --gold: #d4af37;
-            --dark-bg: #000000;
-            --card-bg: #111111;
-            --text-main: #ffffff;
-            --text-dim: #a0a0a0;
+            --primary: #00ff88;
+            --dark: #0a0a0a;
+            --card: #141414;
+            --text: #ffffff;
         }
 
         body {
             margin: 0;
-            font-family: 'Inter', sans-serif;
-            background-color: var(--dark-bg);
-            color: var(--text-main);
-            overflow-x: hidden;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
         }
 
-        /* Hero & Gallery Sections */
+        /* Hero Section */
         .hero {
-            height: 80vh;
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1974&auto=format&fit=crop');
+            height: 70vh;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+                        url('https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1974&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -37,80 +37,63 @@
             padding: 20px;
         }
 
-        .section-title { font-size: 2.5rem; text-align: center; margin: 60px 0 20px; text-transform: uppercase; letter-spacing: 2px; }
-        
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 20px;
+        .hero h1 { font-size: 3.5rem; margin: 0; letter-spacing: 2px; text-transform: uppercase; }
+        .hero p { font-size: 1.2rem; color: #aaa; max-width: 600px; }
+
+        /* Customization Section */
+        .main-container {
             max-width: 1200px;
-            margin: auto;
+            margin: -100px auto 0;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            position: relative;
         }
 
-        .gallery-item {
-            height: 300px;
-            border-radius: 15px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            overflow: hidden;
+        /* 3D Bottle Mockup */
+        .mockup-container {
+            background: var(--card);
+            border-radius: 30px;
+            padding: 40px;
             border: 1px solid #222;
-        }
-
-        .gallery-label {
-            position: absolute;
-            bottom: 0; width: 100%;
-            background: rgba(0,0,0,0.8);
-            padding: 15px;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        /* 3D Visualizer Container */
-        .visualizer-section {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 50px;
-            padding: 80px 20px;
-            background: #050505;
         }
 
-        .bottle-frame {
-            width: 300px;
-            height: 600px;
-            background: rgba(255,255,255,0.05);
+        .square-bottle {
+            width: 260px;
+            height: 520px;
+            background: rgba(255, 255, 255, 0.05);
             border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
+            border-radius: 15px;
             position: relative;
-            box-shadow: 0 0 50px rgba(0,255,136,0.1);
+            box-shadow: inset 0 0 40px rgba(255,255,255,0.05), 0 20px 50px rgba(0,0,0,0.5);
         }
 
         .bottle-cap {
-            width: 90px; height: 45px;
-            background: #e0e0e0;
-            margin: -45px auto 0;
-            border-radius: 8px 8px 0 0;
-            border: 1px solid #ccc;
+            width: 80px; height: 35px;
+            background: #f0f0f0;
+            margin: -35px auto 0;
+            border-radius: 6px 6px 0 0;
         }
 
-        .label-wrap {
-            width: 85%;
+        .bottle-label {
+            width: 88%;
             height: 75%;
             background: white;
             margin: 15% auto;
-            color: black;
+            color: #000;
             display: flex;
             flex-direction: column;
-            padding: 15px;
+            padding: 12px;
             box-sizing: border-box;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        .upper-label {
+        .label-top {
             flex: 1;
-            border-bottom: 2px solid #000;
+            border-bottom: 1.5px solid #333;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -118,185 +101,173 @@
             text-align: center;
         }
 
-        .lower-label {
-            height: 40%;
-            font-size: 8px;
-            padding-top: 10px;
-            line-height: 1.3;
+        .label-bottom {
+            height: 42%;
+            font-size: 7.5px;
+            padding-top: 8px;
+            line-height: 1.25;
+            text-align: left;
         }
 
-        /* Admin & Controls */
-        .admin-btn-trigger { cursor: pointer; transition: color 0.3s; }
-        .admin-btn-trigger:hover { color: var(--primary); }
-
-        #admin-panel {
-            display: none;
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            background: #111;
-            padding: 30px;
-            border: 2px solid var(--primary);
-            border-radius: 20px;
-            z-index: 1000;
-            width: 90%;
-            max-width: 400px;
+        /* Form Controls */
+        .controls {
+            background: var(--card);
+            border-radius: 30px;
+            padding: 40px;
+            border: 1px solid #222;
         }
 
+        .controls h2 { color: var(--gold); margin-top: 0; }
+        
         input, select {
             width: 100%; padding: 15px; margin: 10px 0;
-            background: #222; border: 1px solid #333;
-            color: white; border-radius: 10px;
+            background: #1a1a1a; border: 1px solid #333;
+            color: white; border-radius: 12px;
+            box-sizing: border-box;
         }
 
-        .main-btn {
-            background: var(--primary);
+        .cta-btn {
+            background: var(--gold);
             color: black;
             padding: 18px;
             width: 100%;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             font-weight: 800;
+            font-size: 1rem;
             cursor: pointer;
             margin-top: 20px;
+            text-transform: uppercase;
         }
 
-        footer { padding: 60px 20px; text-align: center; border-top: 1px solid #222; }
-        #qrcode { background: white; padding: 10px; display: inline-block; margin-top: 20px; border-radius: 10px; }
+        /* Hospitality Gallery */
+        .gallery { padding: 80px 20px; max-width: 1200px; margin: auto; }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .gallery-img {
+            height: 250px;
+            border-radius: 20px;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid #222;
+        }
+
+        footer {
+            padding: 60px 20px;
+            text-align: center;
+            background: #050505;
+            border-top: 1px solid #222;
+        }
+
+        #qrcode {
+            background: white;
+            padding: 10px;
+            display: inline-block;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
 
-<div id="admin-panel">
-    <h3>Admin Dashboard</h3>
-    <label>Global Price Display:</label>
-    <input type="text" id="admin-price" placeholder="e.g. ₹12.00 / Bottle">
-    <label>Main Contact Number:</label>
-    <input type="text" id="admin-phone" placeholder="8237599344">
-    <button class="main-btn" onclick="saveAdmin()">Update Site</button>
-    <button class="main-btn" style="background:#333; color:white;" onclick="toggleAdmin()">Close</button>
-</div>
-
 <section class="hero">
-    <h1 class="admin-btn-trigger" onclick="handleAdminClick()">MEMON <span style="color:var(--primary)">CUSTOM</span></h1>
-    <p>Premium Packaged Drinking Water for Palghar's Elite Hospitality</p>
-    <button class="main-btn" style="width:auto; padding: 15px 40px;" onclick="document.getElementById('visualizer').scrollIntoView()">Design Your Bottle</button>
+    <h1>MEMON <span style="color:var(--gold)">CUSTOM</span></h1>
+    <p>Bespoke Hydration Solutions for Fine Dining, Resorts, and Premium Events.</p>
 </section>
 
-<h2 class="section-title">Hospitality & Dining</h2>
-<div class="gallery-grid">
-    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop')">
-        <div class="gallery-label">Fine Dining Excellence</div>
-    </div>
-    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=2070&auto=format&fit=crop')">
-        <div class="gallery-label">Resort Welcome Experience</div>
-    </div>
-    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069&auto=format&fit=crop')">
-        <div class="gallery-label">Luxury Event Branding</div>
-    </div>
-</div>
-
-<h2 class="section-title" id="visualizer">Bottle Visualizer</h2>
-<div class="visualizer-section">
-    <div class="bottle-frame">
-        <div class="bottle-cap"></div>
-        <div class="label-wrap" id="bottle-label">
-            <div class="upper-label">
-                <div id="prev-tag" style="font-size: 8px; margin-bottom: 5px;">Specially Packed For</div>
-                <div id="prev-name" style="font-size: 18px; font-weight: 800;">YOUR BRAND</div>
-            </div>
-            <div class="lower-label">
-                <strong>PACKAGED DRINKING WATER</strong><br>
-                Marketed By: <b>Sahil Enterprises</b><br>
-                Palghar, Maharashtra - 401404<br>
-                FSSAI Lic No: 21526023000448<br>
-                Net Qty: 500ml | Batch: See Neck<br>
-                <div style="text-align:right; margin-top:5px;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" width="25">
+<div class="main-container">
+    <div class="mockup-container">
+        <div class="square-bottle">
+            <div class="bottle-cap"></div>
+            <div class="bottle-label" id="main-label">
+                <div class="label-top">
+                    <span style="font-size: 8px; margin-bottom: 4px;">Specially packed for</span>
+                    <div id="prev-name" style="font-size: 16px; font-weight: 900; line-height: 1;">YOUR LOGO / BRAND</div>
+                </div>
+                <div class="label-bottom">
+                    <strong>PACKAGED DRINKING WATER</strong><br>
+                    Marketed By: <b>Sahil Enterprises</b><br>
+                    Palghar, Maharashtra - 401404<br>
+                    FSSAI Lic No: 21526023000448<br>
+                    Net Qty: 500ml | Batch: See Neck<br>
+                    <div style="text-align:right; margin-top:4px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" width="22">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div style="flex: 1; max-width: 500px;">
-        <h3>Customize Your Order</h3>
-        <label>Event / Business Name:</label>
-        <input type="text" id="cust-name" placeholder="e.g. Anand Resort" oninput="syncPreview()">
+    <div class="controls">
+        <h2>Customization</h2>
+        <p style="color: #888; font-size: 0.9rem;">Preview your brand on our premium square bottle.</p>
         
-        <label>Select Theme:</label>
-        <select id="cust-theme" onchange="syncPreview()">
-            <option value="white">Minimalist White</option>
+        <label>Brand / Event Name:</label>
+        <input type="text" id="cust-name" placeholder="e.g. Anand Resort" oninput="updatePreview()">
+        
+        <label>Design Aesthetic:</label>
+        <select id="cust-theme" onchange="updatePreview()">
+            <option value="white">Pristine White</option>
             <option value="gold">Luxury Gold</option>
-            <option value="silver">Premium Silver</option>
-            <option value="teal">Modern Teal</option>
+            <option value="silver">Brilliant Silver</option>
         </select>
 
-        <div id="live-price" style="font-size: 1.5rem; margin: 20px 0; color: var(--primary);">Rate: Get Best Quote</div>
-        <button class="main-btn" onclick="sendInquiry()">Request Quote via WhatsApp</button>
+        <div style="margin: 25px 0; border-top: 1px solid #333; padding-top: 20px;">
+            <div style="color: var(--gold); font-size: 1.4rem; font-weight: 700;">Rate: Get Best Quote</div>
+            <p style="font-size: 0.8rem; color: #666;">Contact for bulk hospitality pricing in Palghar.</p>
+        </div>
+
+        <button class="cta-btn" onclick="sendWhatsApp()">Request Design Quote</button>
     </div>
 </div>
 
+<section class="gallery">
+    <h2 style="text-align: center; margin-bottom: 40px; text-transform: uppercase;">Hospitality & Dining</h2>
+    <div class="gallery-grid">
+        <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop');"></div>
+        <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1550966842-28243cd6248c?q=80&w=2071&auto=format&fit=crop');"></div>
+        <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069&auto=format&fit=crop');"></div>
+    </div>
+</section>
+
 <footer>
-    <p><b>SAHIL ENTERPRISES</b></p>
-    <p>Palghar, Maharashtra</p>
-    <p id="footer-contact">Ph: +91 8237599344 | 7219299344</p>
+    <p style="font-weight: 700; color: var(--gold); margin-bottom: 5px;">SAHIL ENTERPRISES</p>
+    <p style="color: #888; font-size: 0.9rem;">Palghar, Maharashtra</p>
+    <p style="color: #888; font-size: 0.9rem;">Ph: +91 8237599344 | 7219299344</p>
     <div id="qrcode"></div>
-    <p style="font-size: 10px; color: #444; margin-top: 30px;">ISO Quality Standards • No ISI Mark Required (2026 Regs)</p>
+    <p style="font-size: 10px; color: #333; margin-top: 40px;">© 2026 Memon Custom. ISO Certified Quality Standards.</p>
 </footer>
 
 <script>
-    // QR Generation
+    // QR Code for the Website Link
     window.onload = function() {
         new QRCode(document.getElementById("qrcode"), {
             text: window.location.href,
-            width: 100, height: 100
+            width: 90, height: 90
         });
     };
 
-    // Live Preview Logic
-    function syncPreview() {
+    // Live Label Preview
+    function updatePreview() {
         const name = document.getElementById('cust-name').value;
         const theme = document.getElementById('cust-theme').value;
-        const label = document.getElementById('bottle-label');
+        const label = document.getElementById('main-label');
         
-        document.getElementById('prev-name').innerText = name || "YOUR BRAND";
+        document.getElementById('prev-name').innerText = name || "YOUR LOGO / BRAND";
         
         if(theme === 'gold') label.style.background = "linear-gradient(135deg, #fceabb, #f8b500)";
         else if(theme === 'silver') label.style.background = "linear-gradient(135deg, #e6e9f0, #eef1f5)";
-        else if(theme === 'teal') label.style.background = "linear-gradient(135deg, #00b09b, #96c93d)";
         else label.style.background = "white";
     }
 
-    // WhatsApp Logic
-    function sendInquiry() {
-        const name = document.getElementById('cust-name').value || "Custom Order";
-        const phone = localStorage.getItem('memonPhone') || "8237599344";
-        const text = `Hello Memon Custom! I am interested in a premium order for "${name}". Please provide the latest pricing for square bottles.`;
-        window.location.href = `https://wa.me/91${phone}?text=${encodeURIComponent(text)}`;
-    }
-
-    // Hidden Admin Logic
-    let clicks = 0;
-    function handleAdminClick() {
-        clicks++;
-        if(clicks >= 3) { toggleAdmin(); clicks = 0; }
-    }
-
-    function toggleAdmin() {
-        const panel = document.getElementById('admin-panel');
-        panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
-    }
-
-    function saveAdmin() {
-        const newPrice = document.getElementById('admin-price').value;
-        const newPhone = document.getElementById('admin-phone').value;
-        
-        if(newPrice) document.getElementById('live-price').innerText = "Rate: " + newPrice;
-        if(newPhone) {
-            localStorage.setItem('memonPhone', newPhone);
-            document.getElementById('footer-contact').innerText = "Ph: +91 " + newPhone;
-        }
-        toggleAdmin();
+    // WhatsApp Lead Generation
+    function sendWhatsApp() {
+        const name = document.getElementById('cust-name').value || "Premium Client";
+        const msg = `Hello Memon Custom! I've previewed a design for "${name}" on your website. Please provide your best quote for square bottle customization.`;
+        window.location.href = `https://wa.me/918237599344?text=${encodeURIComponent(msg)}`;
     }
 </script>
 
