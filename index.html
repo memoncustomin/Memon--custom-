@@ -1,118 +1,282 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memon Custom | Luxury Bottle Design</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <style>
-        :root { --gold: #d4af37; --primary: #00ff88; --bg: #000; --panel: #111; }
-        body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: #fff; }
-        
-        .header { padding: 40px 20px; text-align: center; border-bottom: 1px solid #222; }
-        .header h1 { margin: 0; font-size: 2rem; letter-spacing: 1px; color: var(--gold); }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memon Custom</title>
 
-        .preview-box { padding: 30px 20px; display: flex; flex-direction: column; align-items: center; }
-        
-        /* Realistic Square Bottle */
-        .bottle {
-            width: 220px; height: 480px;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 10px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        .cap { width: 70px; height: 35px; background: #eee; margin: -35px auto 0; border-radius: 4px 4px 0 0; }
-        
-        /* The Label Layout based on Picsart_26-03-02_12-03-06-111.png */
-        .label {
-            width: 90%; height: 78%;
-            background: #fff; margin: 12% auto;
-            color: #000; padding: 10px;
-            display: flex; flex-direction: column;
-            box-sizing: border-box;
-        }
-        .label-top { flex: 1; border-bottom: 1px solid #333; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-        .label-bottom { height: 45%; padding-top: 8px; font-size: 7px; line-height: 1.25; }
+<style>
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#000;
+color:white;
+}
 
-        .ui-panel { background: var(--panel); padding: 30px 20px; border-radius: 20px 20px 0 0; margin-top: 20px; }
-        input, select { width: 100%; padding: 15px; margin-bottom: 15px; background: #222; border: 1px solid #444; color: #fff; border-radius: 10px; box-sizing: border-box; font-size: 1rem; }
-        
-        .btn { width: 100%; padding: 18px; background: var(--primary); color: #000; font-weight: 900; border: none; border-radius: 10px; font-size: 1rem; text-transform: uppercase; cursor: pointer; }
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 20px;
+position:fixed;
+width:100%;
+background:#000;
+z-index:1000;
+}
 
-        footer { padding: 40px 20px; text-align: center; font-size: 0.9rem; color: #666; }
-        #qrcode { background: #fff; padding: 10px; display: inline-block; margin-top: 15px; border-radius: 8px; }
-    </style>
+.logo{
+display:flex;
+align-items:center;
+gap:10px;
+font-weight:bold;
+font-size:20px;
+color:#00ff88;
+}
+
+.menu-btn{
+font-size:28px;
+cursor:pointer;
+}
+
+.hero{
+padding-top:120px;
+text-align:center;
+padding-bottom:60px;
+}
+
+.tag{
+color:#00ff88;
+border:1px solid #00ff88;
+display:inline-block;
+padding:5px 15px;
+border-radius:20px;
+margin-bottom:20px;
+}
+
+.hero h1{
+font-size:48px;
+margin:0;
+}
+
+.hero h1 span{
+color:#00ff88;
+}
+
+.section{
+padding:60px 20px;
+text-align:center;
+}
+
+.products{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:30px;
+}
+
+.card{
+background:#111;
+border-radius:15px;
+padding:20px;
+width:280px;
+box-shadow:0 0 20px rgba(0,255,136,0.2);
+}
+
+.card img{
+width:100%;
+border-radius:10px;
+}
+
+.price{
+color:#00ff88;
+font-size:20px;
+font-weight:bold;
+}
+
+button{
+background:#00ff88;
+color:black;
+border:none;
+padding:10px 20px;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+margin-top:10px;
+}
+
+.menu{
+position:fixed;
+right:-300px;
+top:0;
+width:250px;
+height:100%;
+background:#111;
+padding:30px;
+transition:0.4s;
+}
+
+.menu.active{
+right:0;
+}
+
+.menu a{
+display:block;
+color:white;
+text-decoration:none;
+margin:20px 0;
+font-size:18px;
+}
+
+.admin-panel{
+display:none;
+background:#111;
+padding:20px;
+}
+
+input, textarea{
+width:100%;
+padding:8px;
+margin-bottom:10px;
+border-radius:5px;
+border:none;
+}
+</style>
 </head>
+
 <body>
 
-<div class="header">
-    <h1>MEMON CUSTOM</h1>
-    <p style="color:#888; font-size:0.8rem;">Sahil Enterprises | Palghar, MH</p>
+<header>
+<div class="logo">
+<img src="" id="siteLogo" width="30">
+<span id="siteTitle">MEMON CUSTOM</span>
+</div>
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
+</header>
+
+<div class="menu" id="menu">
+<a href="#products">Products</a>
+<a href="#about">About</a>
+<a href="#" onclick="openAdmin()">Admin Settings</a>
 </div>
 
-<div class="preview-box">
-    <div class="bottle">
-        <div class="cap"></div>
-        <div class="label" id="liveLabel">
-            <div class="label-top">
-                <span style="font-size: 6px; text-transform: uppercase;">Specially packed for</span>
-                <div id="brandName" style="font-size: 14px; font-weight: 800; margin-top: 4px;">ANAND RESORT</div>
-            </div>
-            <div class="label-bottom">
-                <strong>PACKAGED DRINKING WATER</strong><br>
-                Marketed By: <b>Sahil Enterprises</b><br>
-                Palghar, Maharashtra - 401404<br>
-                FSSAI Lic No: 21526023000448<br>
-                Ingredients: Treated Water, Added Minerals<br>
-                Net Qty: 500ml | Ph: +91 8237599344<br>
-                <div style="text-align:right; margin-top:5px;"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" width="22"></div>
-            </div>
-        </div>
-    </div>
+<section class="hero">
+<div class="tag">PREMIUM HYDRATION LINE</div>
+<h1>PURE WATER.<br><span>PERSONALIZED.</span></h1>
+<p>Elevate your brand with premium packaged drinking water.</p>
+</section>
+
+<section class="section" id="products">
+<h2>Available in Premium Packaging</h2>
+
+<div class="products">
+
+<div class="card">
+<img id="img250" src="https://via.placeholder.com/300x400">
+<h3>250ml</h3>
+<p class="price" id="price250">₹200</p>
 </div>
 
-<div class="ui-panel">
-    <h3 style="margin:0 0 15px 0;">Live Visualizer</h3>
-    <input type="text" id="userInput" placeholder="Enter Brand/Event Name" oninput="sync()">
-    <select id="userTheme" onchange="sync()">
-        <option value="white">Standard White</option>
-        <option value="gold">Premium Gold</option>
-        <option value="silver">Luxury Silver</option>
-    </select>
-    <div style="margin: 15px 0; font-weight:bold; color:var(--primary);">Bulk Rate: Get Best Quote</div>
-    <button class="btn" onclick="order()">Contact on WhatsApp</button>
+<div class="card">
+<img id="img500" src="https://via.placeholder.com/300x400">
+<h3>500ml</h3>
+<p class="price" id="price500">₹160</p>
 </div>
 
-<footer>
-    <p>Palghar, Maharashtra | +91 7219299344</p>
-    <div id="qrcode"></div>
-    <p style="font-size: 10px; margin-top: 20px;">© 2026 Memon Custom. ISO Quality Certified.</p>
-</footer>
+<div class="card">
+<img id="img1l" src="https://via.placeholder.com/300x400">
+<h3>1 Litre</h3>
+<p class="price" id="price1l">₹110</p>
+</div>
+
+</div>
+</section>
+
+<section class="section" id="about">
+<h2>About Memon Custom</h2>
+<p id="aboutText">
+We provide premium customized packaged drinking water for events, weddings and hospitality.
+</p>
+</section>
+
+<div class="section admin-panel" id="adminPanel">
+<h2>Admin Settings</h2>
+
+<input type="text" id="adminTitle" placeholder="Website Title">
+<input type="text" id="adminLogo" placeholder="Logo Image URL">
+
+<h3>Prices</h3>
+<input type="text" id="admin250" placeholder="250ml Price">
+<input type="text" id="admin500" placeholder="500ml Price">
+<input type="text" id="admin1l" placeholder="1L Price">
+
+<h3>Images</h3>
+<input type="text" id="adminImg250" placeholder="250ml Image URL">
+<input type="text" id="adminImg500" placeholder="500ml Image URL">
+<input type="text" id="adminImg1l" placeholder="1L Image URL">
+
+<h3>About Section</h3>
+<textarea id="adminAbout" rows="4"></textarea>
+
+<button onclick="saveSettings()">Save Settings</button>
+</div>
 
 <script>
-    // Self-generating QR for your site
-    window.onload = function() {
-        new QRCode(document.getElementById("qrcode"), { text: window.location.href, width: 80, height: 80 });
-    };
+function toggleMenu(){
+document.getElementById("menu").classList.toggle("active");
+}
 
-    function sync() {
-        const name = document.getElementById('userInput').value;
-        const theme = document.getElementById('userTheme').value;
-        const label = document.getElementById('liveLabel');
-        document.getElementById('brandName').innerText = name || "ANAND RESORT";
-        
-        if(theme === 'gold') label.style.background = "linear-gradient(135deg, #fceabb, #f8b500)";
-        else if(theme === 'silver') label.style.background = "linear-gradient(135deg, #e6e9f0, #eef1f5)";
-        else label.style.background = "white";
-    }
+function openAdmin(){
+let pass=prompt("Enter Admin Password:");
+if(pass==="1234"){
+document.getElementById("adminPanel").style.display="block";
+window.scrollTo(0,document.body.scrollHeight);
+}else{
+alert("Wrong Password");
+}
+}
 
-    function order() {
-        const brand = document.getElementById('userInput').value || "Premium Client";
-        const text = encodeURIComponent(`Hello Memon Custom! I am interested in a bulk order for ${brand}. Please provide a quote for the square bottles.`);
-        window.location.href = `https://wa.me/918237599344?text=${text}`;
-    }
+function saveSettings(){
+localStorage.setItem("title",adminTitle.value);
+localStorage.setItem("logo",adminLogo.value);
+localStorage.setItem("p250",admin250.value);
+localStorage.setItem("p500",admin500.value);
+localStorage.setItem("p1l",admin1l.value);
+localStorage.setItem("img250",adminImg250.value);
+localStorage.setItem("img500",adminImg500.value);
+localStorage.setItem("img1l",adminImg1l.value);
+localStorage.setItem("about",adminAbout.value);
+location.reload();
+}
+
+window.onload=function(){
+if(localStorage.getItem("title"))
+siteTitle.innerText=localStorage.getItem("title");
+
+if(localStorage.getItem("logo"))
+siteLogo.src=localStorage.getItem("logo");
+
+if(localStorage.getItem("p250"))
+price250.innerText=localStorage.getItem("p250");
+
+if(localStorage.getItem("p500"))
+price500.innerText=localStorage.getItem("p500");
+
+if(localStorage.getItem("p1l"))
+price1l.innerText=localStorage.getItem("p1l");
+
+if(localStorage.getItem("img250"))
+img250.src=localStorage.getItem("img250");
+
+if(localStorage.getItem("img500"))
+img500.src=localStorage.getItem("img500");
+
+if(localStorage.getItem("img1l"))
+img1l.src=localStorage.getItem("img1l");
+
+if(localStorage.getItem("about"))
+aboutText.innerText=localStorage.getItem("about");
+}
 </script>
+
 </body>
-</html>
+    </html>
