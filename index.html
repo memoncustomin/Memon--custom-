@@ -1,282 +1,314 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Memon Custom</title>
-
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 body{
-margin:0;
-font-family:Arial, sans-serif;
-background:#000;
-color:white;
+background:#0b0f14;
+color:#fff;
+overflow-x:hidden;
 }
 
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 20px;
-position:fixed;
-width:100%;
-background:#000;
-z-index:1000;
+section{
+padding:80px 8%;
 }
 
-.logo{
-display:flex;
-align-items:center;
-gap:10px;
-font-weight:bold;
-font-size:20px;
-color:#00ff88;
+h1,h2,h3{
+font-weight:700;
 }
 
-.menu-btn{
-font-size:28px;
-cursor:pointer;
+.highlight{
+color:#00e0b8;
 }
+
+.btn{
+background:#00e0b8;
+color:#000;
+padding:12px 28px;
+border-radius:30px;
+font-weight:600;
+text-decoration:none;
+display:inline-block;
+transition:0.3s;
+}
+.btn:hover{
+background:#00b89c;
+}
+
+/* HERO */
 
 .hero{
-padding-top:120px;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
 text-align:center;
-padding-bottom:60px;
-}
-
-.tag{
-color:#00ff88;
-border:1px solid #00ff88;
-display:inline-block;
-padding:5px 15px;
-border-radius:20px;
-margin-bottom:20px;
+background:radial-gradient(circle at top, rgba(0,224,184,0.15), transparent 60%);
 }
 
 .hero h1{
 font-size:48px;
-margin:0;
+margin-bottom:20px;
 }
 
-.hero h1 span{
-color:#00ff88;
+.hero p{
+opacity:0.8;
+margin-bottom:30px;
 }
 
-.section{
-padding:60px 20px;
-text-align:center;
-}
-
-.products{
+.bottle-row{
 display:flex;
+gap:40px;
+margin-top:60px;
 flex-wrap:wrap;
 justify-content:center;
-gap:30px;
 }
 
-.card{
-background:#111;
-border-radius:15px;
-padding:20px;
-width:280px;
-box-shadow:0 0 20px rgba(0,255,136,0.2);
+.bottle{
+width:160px;
+height:300px;
+background:linear-gradient(to bottom,#1a1f26,#111);
+border-radius:20px;
+position:relative;
+box-shadow:0 0 25px rgba(0,224,184,0.3);
 }
 
-.card img{
-width:100%;
+.bottle::before{
+content:"";
+position:absolute;
+top:-30px;
+left:50%;
+transform:translateX(-50%);
+width:80px;
+height:40px;
+background:#1a1f26;
 border-radius:10px;
 }
 
-.price{
-color:#00ff88;
-font-size:20px;
-font-weight:bold;
+/* TRUST STRIP */
+
+.trust{
+display:flex;
+justify-content:space-around;
+flex-wrap:wrap;
+background:#0f141a;
+padding:30px 8%;
 }
 
-button{
-background:#00ff88;
-color:black;
-border:none;
-padding:10px 20px;
-border-radius:8px;
-cursor:pointer;
-font-weight:bold;
-margin-top:10px;
+.trust div{
+opacity:0.8;
 }
 
-.menu{
-position:fixed;
-right:-300px;
-top:0;
-width:250px;
-height:100%;
-background:#111;
+/* CUSTOMIZER */
+
+.customizer{
+display:flex;
+flex-wrap:wrap;
+gap:50px;
+align-items:center;
+}
+
+.controls{
+flex:1;
+background:#11161c;
 padding:30px;
-transition:0.4s;
+border-radius:20px;
+box-shadow:0 0 20px rgba(0,224,184,0.15);
 }
 
-.menu.active{
-right:0;
-}
-
-.menu a{
+.controls label{
 display:block;
-color:white;
-text-decoration:none;
-margin:20px 0;
-font-size:18px;
+margin-top:15px;
+font-size:14px;
+opacity:0.8;
 }
 
-.admin-panel{
-display:none;
-background:#111;
-padding:20px;
-}
-
-input, textarea{
+.controls input, .controls select{
 width:100%;
-padding:8px;
-margin-bottom:10px;
-border-radius:5px;
+margin-top:5px;
+padding:10px;
+border-radius:8px;
 border:none;
+background:#1c232c;
+color:#fff;
 }
+
+.preview{
+flex:1;
+display:flex;
+justify-content:center;
+}
+
+.preview .bottle{
+width:200px;
+height:360px;
+}
+
+/* QR SECTION */
+
+.qr-section{
+text-align:center;
+background:#0f141a;
+}
+
+.qr-box{
+margin-top:40px;
+display:flex;
+justify-content:center;
+}
+
+.qr{
+width:120px;
+height:120px;
+background:#fff;
+}
+
+/* INDUSTRIES */
+
+.industries{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:20px;
+margin-top:40px;
+}
+
+.industry-card{
+background:#11161c;
+padding:25px;
+text-align:center;
+border-radius:15px;
+transition:0.3s;
+}
+
+.industry-card:hover{
+box-shadow:0 0 20px rgba(0,224,184,0.4);
+}
+
+/* FOOTER */
+
+footer{
+text-align:center;
+padding:40px;
+background:#0b0f14;
+opacity:0.7;
+font-size:14px;
+}
+
+/* WHATSAPP */
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#00e676;
+color:#000;
+padding:14px 18px;
+border-radius:50px;
+font-weight:600;
+text-decoration:none;
+}
+
+@media(max-width:768px){
+.hero h1{font-size:32px;}
+section{padding:60px 6%;}
+}
+
 </style>
 </head>
-
 <body>
 
-<header>
-<div class="logo">
-<img src="" id="siteLogo" width="30">
-<span id="siteTitle">MEMON CUSTOM</span>
-</div>
-<div class="menu-btn" onclick="toggleMenu()">☰</div>
-</header>
-
-<div class="menu" id="menu">
-<a href="#products">Products</a>
-<a href="#about">About</a>
-<a href="#" onclick="openAdmin()">Admin Settings</a>
-</div>
-
+<!-- HERO -->
 <section class="hero">
-<div class="tag">PREMIUM HYDRATION LINE</div>
-<h1>PURE WATER.<br><span>PERSONALIZED.</span></h1>
-<p>Elevate your brand with premium packaged drinking water.</p>
-</section>
+<h1>PURE WATER.<br><span class="highlight">POWERFUL BRANDING.</span></h1>
+<p>Custom Bottled Water for Every Business & Event</p>
+<a href="#customize" class="btn">Design Your Bottle</a>
 
-<section class="section" id="products">
-<h2>Available in Premium Packaging</h2>
-
-<div class="products">
-
-<div class="card">
-<img id="img250" src="https://via.placeholder.com/300x400">
-<h3>250ml</h3>
-<p class="price" id="price250">₹200</p>
-</div>
-
-<div class="card">
-<img id="img500" src="https://via.placeholder.com/300x400">
-<h3>500ml</h3>
-<p class="price" id="price500">₹160</p>
-</div>
-
-<div class="card">
-<img id="img1l" src="https://via.placeholder.com/300x400">
-<h3>1 Litre</h3>
-<p class="price" id="price1l">₹110</p>
-</div>
-
+<div class="bottle-row">
+<div class="bottle"></div>
+<div class="bottle"></div>
+<div class="bottle"></div>
 </div>
 </section>
 
-<section class="section" id="about">
-<h2>About Memon Custom</h2>
-<p id="aboutText">
-We provide premium customized packaged drinking water for events, weddings and hospitality.
-</p>
-</section>
-
-<div class="section admin-panel" id="adminPanel">
-<h2>Admin Settings</h2>
-
-<input type="text" id="adminTitle" placeholder="Website Title">
-<input type="text" id="adminLogo" placeholder="Logo Image URL">
-
-<h3>Prices</h3>
-<input type="text" id="admin250" placeholder="250ml Price">
-<input type="text" id="admin500" placeholder="500ml Price">
-<input type="text" id="admin1l" placeholder="1L Price">
-
-<h3>Images</h3>
-<input type="text" id="adminImg250" placeholder="250ml Image URL">
-<input type="text" id="adminImg500" placeholder="500ml Image URL">
-<input type="text" id="adminImg1l" placeholder="1L Image URL">
-
-<h3>About Section</h3>
-<textarea id="adminAbout" rows="4"></textarea>
-
-<button onclick="saveSettings()">Save Settings</button>
+<!-- TRUST -->
+<div class="trust">
+<div>Low MOQ</div>
+<div>Fast Delivery</div>
+<div>Premium Quality</div>
+<div>QR Marketing</div>
 </div>
 
-<script>
-function toggleMenu(){
-document.getElementById("menu").classList.toggle("active");
-}
+<!-- CUSTOMIZER -->
+<section id="customize">
+<h2>Design Your Bottle <span class="highlight">Live</span></h2>
 
-function openAdmin(){
-let pass=prompt("Enter Admin Password:");
-if(pass==="1234"){
-document.getElementById("adminPanel").style.display="block";
-window.scrollTo(0,document.body.scrollHeight);
-}else{
-alert("Wrong Password");
-}
-}
+<div class="customizer">
+<div class="controls">
+<label>Brand Name</label>
+<input type="text" placeholder="Enter Brand Name">
 
-function saveSettings(){
-localStorage.setItem("title",adminTitle.value);
-localStorage.setItem("logo",adminLogo.value);
-localStorage.setItem("p250",admin250.value);
-localStorage.setItem("p500",admin500.value);
-localStorage.setItem("p1l",admin1l.value);
-localStorage.setItem("img250",adminImg250.value);
-localStorage.setItem("img500",adminImg500.value);
-localStorage.setItem("img1l",adminImg1l.value);
-localStorage.setItem("about",adminAbout.value);
-location.reload();
-}
+<label>Select Size</label>
+<select>
+<option>250ml</option>
+<option>500ml</option>
+<option>1L</option>
+</select>
 
-window.onload=function(){
-if(localStorage.getItem("title"))
-siteTitle.innerText=localStorage.getItem("title");
+<label>Choose Color</label>
+<select>
+<option>Black</option>
+<option>Emerald</option>
+<option>White</option>
+</select>
 
-if(localStorage.getItem("logo"))
-siteLogo.src=localStorage.getItem("logo");
+<br><br>
+<button class="btn">Request Quote</button>
+</div>
 
-if(localStorage.getItem("p250"))
-price250.innerText=localStorage.getItem("p250");
+<div class="preview">
+<div class="bottle"></div>
+</div>
+</div>
+</section>
 
-if(localStorage.getItem("p500"))
-price500.innerText=localStorage.getItem("p500");
+<!-- QR SECTION -->
+<section class="qr-section">
+<h2>Turn Every Bottle Into <span class="highlight">Marketing</span></h2>
+<p>Scan. Discover. Order.</p>
 
-if(localStorage.getItem("p1l"))
-price1l.innerText=localStorage.getItem("p1l");
+<div class="qr-box">
+<div class="qr"></div>
+</div>
+</section>
 
-if(localStorage.getItem("img250"))
-img250.src=localStorage.getItem("img250");
+<!-- INDUSTRIES -->
+<section>
+<h2>Industries We Serve</h2>
 
-if(localStorage.getItem("img500"))
-img500.src=localStorage.getItem("img500");
+<div class="industries">
+<div class="industry-card">Hotels</div>
+<div class="industry-card">Restaurants</div>
+<div class="industry-card">Corporate</div>
+<div class="industry-card">Weddings</div>
+<div class="industry-card">Gyms</div>
+<div class="industry-card">Retail</div>
+</div>
+</section>
 
-if(localStorage.getItem("img1l"))
-img1l.src=localStorage.getItem("img1l");
+<!-- FOOTER -->
+<footer>
+MEMON CUSTOM <br>
+Registered as Sahil Enterprises <br><br>
+© 2026 All Rights Reserved
+</footer>
 
-if(localStorage.getItem("about"))
-aboutText.innerText=localStorage.getItem("about");
-}
-</script>
+<a href="#" class="whatsapp">WhatsApp</a>
 
 </body>
-    </html>
+</html>
