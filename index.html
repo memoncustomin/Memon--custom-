@@ -31,6 +31,8 @@ cat << 'EOF' > package.json
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/node": "^22.14.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "tailwindcss": "^4.1.14",
     "typescript": "~5.8.2"
   }
@@ -55,6 +57,11 @@ async function startServer() {
   const io = new Server(httpServer, {
     cors: { origin: "*", methods: ["GET", "POST"] },
     path: "/socket.io/"
+  });
+
+  app.use((req, res, next) => {
+    console.log(`${req.method} ${req.url}`);
+    next();
   });
 
   io.on("connection", (socket) => {
@@ -86,7 +93,15 @@ async function startServer() {
 startServer();
 EOF
 
-# 3. src/types.ts
+# 3. vite.config.ts
+cat << 'EOF' > vite.config.ts
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'vite';
+export default defineConfig({ plugins: [react(), tailwindcss()], server: { hmr: false } });
+EOF
+
+# 4. src/types.ts
 cat << 'EOF' > src/types.ts
 export interface ContactInfo {
   phone: string; email: string; address: string;
@@ -103,7 +118,7 @@ export interface ContactInfo {
 export interface Product { id: string; name: string; size: string; price: number; description: string; image: string; }
 EOF
 
-# 4. src/constants.ts
+# 5. src/constants.ts
 cat << 'EOF' > src/constants.ts
 import { ContactInfo, Product } from './types';
 export const INITIAL_CONTACT: ContactInfo = {
@@ -124,7 +139,7 @@ export const PRODUCTS: Product[] = [
 ];
 EOF
 
-# 5. src/index.css
+# 6. src/index.css
 cat << 'EOF' > src/index.css
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
@@ -132,21 +147,13 @@ cat << 'EOF' > src/index.css
 @layer base { html { scroll-behavior: smooth; } }
 EOF
 
-# 6. src/main.tsx
+# 7. src/main.tsx
 cat << 'EOF' > src/main.tsx
 import {StrictMode} from 'react';
 import {createRoot} from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>);
-EOF
-
-# 7. vite.config.ts
-cat << 'EOF' > vite.config.ts
-import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
-import { defineConfig } from 'vite';
-export default defineConfig({ plugins: [react(), tailwindcss()], server: { hmr: false } });
 EOF
 
 # 8. index.html
@@ -156,6 +163,98 @@ cat << 'EOF' > index.html
   <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Memon Custom</title></head>
   <body><div id="root"></div><script type="module" src="/src/main.tsx"></script></body>
 </html>
+EOF
+
+# 9. src/components/LiveChat.tsx
+cat << 'EOF' > src/components/LiveChat.tsx
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { MessageSquare, X, Send, User, HelpCircle } from 'lucide-react';
+import { io, Socket } from "socket.io-client";
+
+export const LiveChat = ({ role, adminRoomId, hideToggle, forceOpen }) => {
+  const [isOpen, setIsOpen] = useState(forceOpen || false);
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
+  const [socket, setSocket] = useState(null);
+  const [isConnected, setIsConnected] = useState(false);
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    const newSocket = io({
+      path: "/socket.io/",
+      transports: ['polling', 'websocket'],
+      reconnectionAttempts: 20,
+      timeout: 30000
+    });
+    setSocket(newSocket);
+    newSocket.on("connect", () => { setIsConnected(true); newSocket.emit("join_chat", role); });
+    newSocket.on("new_message", (msg) => setMessages(prev => [...prev, msg]));
+    return () => newSocket.disconnect();
+  }, [role]);
+
+  const handleSend = () => {
+    if (!input.trim() || !socket) return;
+    const msg = { text: input.trim(), sender: role, timestamp: new Date().toLocaleTimeString(), roomId: adminRoomId || socket.id };
+    socket.emit("send_message", msg);
+    setInput('');
+  };
+
+  return (
+    <>
+      {!hideToggle && (
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => setIsOpen(!isOpen)}
+          className={`fixed bottom-6 right-6 z-[100] w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all ${
+            role === 'admin' ? 'bg-emerald-500 text-black' : 'bg-white text-black'
+          }`}
+        >
+          {isOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
+        </motion.button>
+      )}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            className={`${hideToggle ? 'relative w-full h-full' : 'fixed bottom-24 right-6 z-[100] w-[350px] sm:w-[400px] h-[500px]'} bg-[#111] border border-white/10 rounded-[32px] shadow-2xl flex flex-col overflow-hidden`}
+          >
+            <div className="p-6 flex items-center gap-3 border-b border-white/10 bg-white/5">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white text-black">
+                <User className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-bold text-sm">{role === 'admin' ? 'Admin Support' : 'Live Support'}</h4>
+                <div className="flex items-center gap-1.5">
+                  <div className={`w-1.5 h-1.5 rounded-full ${isConnected ? 'bg-emerald-500 animate-pulse' : 'bg-red-500'}`} />
+                  <p className="text-[10px] text-white/40 uppercase tracking-widest">{isConnected ? 'Connected' : 'Disconnected'}</p>
+                </div>
+              </div>
+            </div>
+            <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-4">
+              {messages.map((msg, i) => (
+                <div key={i} className={`flex ${msg.sender === role ? 'justify-end' : 'justify-start'}`}>
+                  <div className={`max-w-[80%] p-4 rounded-2xl text-sm ${msg.sender === role ? 'bg-emerald-500 text-black' : 'bg-white/5 text-white/90 border border-white/10'}`}>
+                    {msg.text}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="p-4 border-t border-white/10">
+              <div className="relative">
+                <input type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSend()} placeholder="Type..." className="w-full bg-white/5 border border-white/10 rounded-full py-3 pl-5 pr-12 text-sm outline-none" />
+                <button onClick={handleSend} className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-emerald-500 text-black rounded-full flex items-center justify-center"><Send className="w-4 h-4" /></button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
 EOF
 
 echo "Setup complete! Now run 'npm install' and 'npm run dev'."
