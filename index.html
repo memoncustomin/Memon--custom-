@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memon Custom | Premium Personalised Water</title>
+    <title>Memon Custom | Premium Hospitality Hydration</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         :root {
             --primary: #00ff88; 
+            --gold: #d4af37;
             --dark-bg: #000000;
             --card-bg: #111111;
             --text-main: #ffffff;
@@ -16,171 +17,286 @@
 
         body {
             margin: 0;
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--dark-bg);
             color: var(--text-main);
-            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        header {
-            padding: 100px 20px;
-            text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1523362628242-41c3845624d8?q=80&w=2073&auto=format&fit=crop');
+        /* Hero & Gallery Sections */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1974&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
-            border-bottom: 1px solid #222;
-        }
-
-        h1 { font-size: 3.5rem; margin: 0; letter-spacing: -2px; font-weight: 800; text-transform: uppercase; }
-        .highlight { color: var(--primary); }
-
-        .container { max-width: 1100px; margin: auto; padding: 60px 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 24px;
-            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            border: 1px solid #222;
-            transition: transform 0.3s ease;
+            padding: 20px;
         }
-        .card:hover { transform: translateY(-10px); border-color: var(--primary); }
 
-        .price-tag { 
-            display: inline-block;
-            margin: 20px 0;
-            padding: 10px 25px;
-            border: 1px solid var(--primary);
+        .section-title { font-size: 2.5rem; text-align: center; margin: 60px 0 20px; text-transform: uppercase; letter-spacing: 2px; }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .gallery-item {
+            height: 300px;
+            border-radius: 15px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #222;
+        }
+
+        .gallery-label {
+            position: absolute;
+            bottom: 0; width: 100%;
+            background: rgba(0,0,0,0.8);
+            padding: 15px;
+            font-weight: bold;
             color: var(--primary);
-            border-radius: 50px;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.9rem;
         }
 
-        .form-section { 
-            background: #0a0a0a; 
-            padding: 60px 40px; 
-            border-radius: 40px; 
-            margin-top: 60px; 
-            border: 1px solid #222;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
+        /* 3D Visualizer Container */
+        .visualizer-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 50px;
+            padding: 80px 20px;
+            background: #050505;
+        }
+
+        .bottle-frame {
+            width: 300px;
+            height: 600px;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0,255,136,0.1);
+        }
+
+        .bottle-cap {
+            width: 90px; height: 45px;
+            background: #e0e0e0;
+            margin: -45px auto 0;
+            border-radius: 8px 8px 0 0;
+            border: 1px solid #ccc;
+        }
+
+        .label-wrap {
+            width: 85%;
+            height: 75%;
+            background: white;
+            margin: 15% auto;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            box-sizing: border-box;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .upper-label {
+            flex: 1;
+            border-bottom: 2px solid #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .lower-label {
+            height: 40%;
+            font-size: 8px;
+            padding-top: 10px;
+            line-height: 1.3;
+        }
+
+        /* Admin & Controls */
+        .admin-btn-trigger { cursor: pointer; transition: color 0.3s; }
+        .admin-btn-trigger:hover { color: var(--primary); }
+
+        #admin-panel {
+            display: none;
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: #111;
+            padding: 30px;
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            z-index: 1000;
+            width: 90%;
+            max-width: 400px;
         }
 
         input, select {
-            width: 100%; padding: 18px; margin: 12px 0;
-            background: #151515; border: 1px solid #333;
-            color: white; border-radius: 12px; box-sizing: border-box;
-            font-size: 1rem;
+            width: 100%; padding: 15px; margin: 10px 0;
+            background: #222; border: 1px solid #333;
+            color: white; border-radius: 10px;
         }
 
-        .btn {
-            background: var(--primary); color: black;
-            padding: 20px; border: none; border-radius: 12px;
-            font-weight: 800; cursor: pointer; width: 100%; 
-            font-size: 1.1rem; margin-top: 20px;
-            transition: opacity 0.2s;
-        }
-        .btn:hover { opacity: 0.9; }
-
-        #qrcode {
-            background: white;
-            padding: 15px;
-            border-radius: 15px;
-            display: inline-block;
-            margin-top: 30px;
+        .main-btn {
+            background: var(--primary);
+            color: black;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 20px;
         }
 
-        footer { 
-            padding: 80px 20px; 
-            background: #050505; 
-            border-top: 1px solid #222; 
-            text-align: center; 
-        }
-        .f-title { font-size: 1.5rem; color: var(--primary); font-weight: 800; margin-bottom: 15px; }
+        footer { padding: 60px 20px; text-align: center; border-top: 1px solid #222; }
+        #qrcode { background: white; padding: 10px; display: inline-block; margin-top: 20px; border-radius: 10px; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Pure Luxury.<br><span class="highlight">Custom Crafted.</span></h1>
-    <p style="color: var(--text-dim); max-width: 600px; margin: 25px auto; font-size: 1.2rem;">Premium hydration solutions for Palghar's elite events and hospitality.</p>
-</header>
+<div id="admin-panel">
+    <h3>Admin Dashboard</h3>
+    <label>Global Price Display:</label>
+    <input type="text" id="admin-price" placeholder="e.g. ₹12.00 / Bottle">
+    <label>Main Contact Number:</label>
+    <input type="text" id="admin-phone" placeholder="8237599344">
+    <button class="main-btn" onclick="saveAdmin()">Update Site</button>
+    <button class="main-btn" style="background:#333; color:white;" onclick="toggleAdmin()">Close</button>
+</div>
 
-<div class="container">
-    <div class="grid">
-        <div class="card">
-            <h3>250ml Series</h3>
-            <div class="price-tag">Get Best Quote</div>
-            <p style="color:var(--text-dim)">Elegant, compact, and perfect for wedding guest welcomes.</p>
-        </div>
-        <div class="card">
-            <h3>500ml Classic</h3>
-            <div class="price-tag">Get Best Quote</div>
-            <p style="color:var(--text-dim)">The standard for corporate branding and resort dining.</p>
-        </div>
-        <div class="card">
-            <h3>1 Litre Reserve</h3>
-            <div class="price-tag">Get Best Quote</div>
-            <p style="color:var(--text-dim)">Premium capacity for long-duration VIP events.</p>
+<section class="hero">
+    <h1 class="admin-btn-trigger" onclick="handleAdminClick()">MEMON <span style="color:var(--primary)">CUSTOM</span></h1>
+    <p>Premium Packaged Drinking Water for Palghar's Elite Hospitality</p>
+    <button class="main-btn" style="width:auto; padding: 15px 40px;" onclick="document.getElementById('visualizer').scrollIntoView()">Design Your Bottle</button>
+</section>
+
+<h2 class="section-title">Hospitality & Dining</h2>
+<div class="gallery-grid">
+    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop')">
+        <div class="gallery-label">Fine Dining Excellence</div>
+    </div>
+    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=2070&auto=format&fit=crop')">
+        <div class="gallery-label">Resort Welcome Experience</div>
+    </div>
+    <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069&auto=format&fit=crop')">
+        <div class="gallery-label">Luxury Event Branding</div>
+    </div>
+</div>
+
+<h2 class="section-title" id="visualizer">Bottle Visualizer</h2>
+<div class="visualizer-section">
+    <div class="bottle-frame">
+        <div class="bottle-cap"></div>
+        <div class="label-wrap" id="bottle-label">
+            <div class="upper-label">
+                <div id="prev-tag" style="font-size: 8px; margin-bottom: 5px;">Specially Packed For</div>
+                <div id="prev-name" style="font-size: 18px; font-weight: 800;">YOUR BRAND</div>
+            </div>
+            <div class="lower-label">
+                <strong>PACKAGED DRINKING WATER</strong><br>
+                Marketed By: <b>Sahil Enterprises</b><br>
+                Palghar, Maharashtra - 401404<br>
+                FSSAI Lic No: 21526023000448<br>
+                Net Qty: 500ml | Batch: See Neck<br>
+                <div style="text-align:right; margin-top:5px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" width="25">
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="form-section">
-        <h2 style="text-align:center; margin-bottom: 30px;">Start Your Custom Order</h2>
-        <input type="text" id="brandName" placeholder="Business or Event Name (e.g. Anand Resort)">
-        <select id="theme">
-            <option value="Gold & Black">Gold & Black (Premium Luxe)</option>
-            <option value="Silver & Black">Silver & Black (Classic Modern)</option>
-            <option value="Full Color">Full Color Branding</option>
+    <div style="flex: 1; max-width: 500px;">
+        <h3>Customize Your Order</h3>
+        <label>Event / Business Name:</label>
+        <input type="text" id="cust-name" placeholder="e.g. Anand Resort" oninput="syncPreview()">
+        
+        <label>Select Theme:</label>
+        <select id="cust-theme" onchange="syncPreview()">
+            <option value="white">Minimalist White</option>
+            <option value="gold">Luxury Gold</option>
+            <option value="silver">Premium Silver</option>
+            <option value="teal">Modern Teal</option>
         </select>
-        <input type="number" id="boxQty" placeholder="Estimated Quantity (Boxes)">
-        <button class="btn" onclick="sendInquiry()">Connect on WhatsApp</button>
+
+        <div id="live-price" style="font-size: 1.5rem; margin: 20px 0; color: var(--primary);">Rate: Get Best Quote</div>
+        <button class="main-btn" onclick="sendInquiry()">Request Quote via WhatsApp</button>
     </div>
 </div>
 
 <footer>
-    <div class="f-title">Sahil Enterprises</div>
-    <div style="margin-bottom: 30px;">
-        <p>📍 Palghar, Maharashtra</p>
-        <p>📞 +91 8237599344 | 7219299344</p>
-        <p>✉️ memoncustom.in@gmail.com</p>
-    </div>
-    
-    <div style="color: var(--text-dim); margin-top: 40px;">
-        <p style="font-size: 0.9rem; margin-bottom: 10px;">Scan to share our catalog</p>
-        <div id="qrcode"></div>
-    </div>
-    
-    <p style="color: #333; margin-top: 50px; font-size: 0.8rem;">© 2026 Memon Custom. ISO Standards Observed.</p>
+    <p><b>SAHIL ENTERPRISES</b></p>
+    <p>Palghar, Maharashtra</p>
+    <p id="footer-contact">Ph: +91 8237599344 | 7219299344</p>
+    <div id="qrcode"></div>
+    <p style="font-size: 10px; color: #444; margin-top: 30px;">ISO Quality Standards • No ISI Mark Required (2026 Regs)</p>
 </footer>
 
 <script>
-    // Generate the QR code automatically for your link
+    // QR Generation
     window.onload = function() {
         new QRCode(document.getElementById("qrcode"), {
             text: window.location.href,
-            width: 128,
-            height: 128,
-            colorDark : "#000000",
-            colorLight : "#ffffff",
-            correctLevel : QRCode.CorrectLevel.H
+            width: 100, height: 100
         });
     };
 
+    // Live Preview Logic
+    function syncPreview() {
+        const name = document.getElementById('cust-name').value;
+        const theme = document.getElementById('cust-theme').value;
+        const label = document.getElementById('bottle-label');
+        
+        document.getElementById('prev-name').innerText = name || "YOUR BRAND";
+        
+        if(theme === 'gold') label.style.background = "linear-gradient(135deg, #fceabb, #f8b500)";
+        else if(theme === 'silver') label.style.background = "linear-gradient(135deg, #e6e9f0, #eef1f5)";
+        else if(theme === 'teal') label.style.background = "linear-gradient(135deg, #00b09b, #96c93d)";
+        else label.style.background = "white";
+    }
+
+    // WhatsApp Logic
     function sendInquiry() {
-        const brand = document.getElementById("brandName").value || "New Inquiry";
-        const theme = document.getElementById("theme").value;
-        const qty = document.getElementById("boxQty").value || "Not specified";
+        const name = document.getElementById('cust-name').value || "Custom Order";
+        const phone = localStorage.getItem('memonPhone') || "8237599344";
+        const text = `Hello Memon Custom! I am interested in a premium order for "${name}". Please provide the latest pricing for square bottles.`;
+        window.location.href = `https://wa.me/91${phone}?text=${encodeURIComponent(text)}`;
+    }
+
+    // Hidden Admin Logic
+    let clicks = 0;
+    function handleAdminClick() {
+        clicks++;
+        if(clicks >= 3) { toggleAdmin(); clicks = 0; }
+    }
+
+    function toggleAdmin() {
+        const panel = document.getElementById('admin-panel');
+        panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+    }
+
+    function saveAdmin() {
+        const newPrice = document.getElementById('admin-price').value;
+        const newPhone = document.getElementById('admin-phone').value;
         
-        const text = `Hello Memon Custom! I'd like a quote for:%0A%0ABrand: ${brand}%0ATheme: ${theme}%0AQuantity: ${qty}%0A%0APlease provide your best commercial rates.`;
-        
-        // Primary Business Number
-        window.location.href = "https://wa.me/918237599344?text=" + text;
+        if(newPrice) document.getElementById('live-price').innerText = "Rate: " + newPrice;
+        if(newPhone) {
+            localStorage.setItem('memonPhone', newPhone);
+            document.getElementById('footer-contact').innerText = "Ph: +91 " + newPhone;
+        }
+        toggleAdmin();
     }
 </script>
 
