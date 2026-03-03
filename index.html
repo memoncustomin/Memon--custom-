@@ -1,275 +1,161 @@
-<!DOCTYPE html>
+#!/bin/bash
+
+# Create directory structure
+mkdir -p src/components
+
+# 1. package.json
+cat << 'EOF' > package.json
+{
+  "name": "memon-custom",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx server.ts",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^5.0.4",
+    "express": "^4.21.2",
+    "lucide-react": "^0.546.0",
+    "motion": "^12.23.24",
+    "qrcode.react": "^4.2.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "socket.io": "^4.8.3",
+    "socket.io-client": "^4.8.3",
+    "vite": "^6.2.0",
+    "tsx": "^4.21.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.14.0",
+    "tailwindcss": "^4.1.14",
+    "typescript": "~5.8.2"
+  }
+}
+EOF
+
+# 2. server.ts
+cat << 'EOF' > server.ts
+import express from "express";
+import { createServer } from "http";
+import { Server } from "socket.io";
+import { createServer as createViteServer } from "vite";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+async function startServer() {
+  const app = express();
+  const httpServer = createServer(app);
+  const io = new Server(httpServer, {
+    cors: { origin: "*", methods: ["GET", "POST"] },
+    path: "/socket.io/"
+  });
+
+  io.on("connection", (socket) => {
+    socket.on("join_chat", (role) => {
+      if (role === "admin") socket.join("admin_room");
+      else socket.join(socket.id);
+    });
+    socket.on("send_message", (data) => {
+      const { text, sender, roomId, timestamp } = data;
+      if (sender === "customer") {
+        io.to("admin_room").emit("new_message", { text, sender, roomId: socket.id, timestamp });
+        socket.emit("new_message", { text, sender, roomId: socket.id, timestamp });
+      } else if (sender === "admin") {
+        io.to(roomId).emit("new_message", { text, sender, roomId, timestamp });
+      }
+    });
+  });
+
+  if (process.env.NODE_ENV !== "production") {
+    const vite = await createViteServer({ server: { middlewareMode: true, hmr: false }, appType: "spa" });
+    app.use(vite.middlewares);
+  } else {
+    app.use(express.static(path.join(__dirname, "dist")));
+    app.get("*", (req, res) => res.sendFile(path.join(__dirname, "dist", "index.html")));
+  }
+
+  httpServer.listen(3000, "0.0.0.0", () => console.log("Server running on http://localhost:3000"));
+}
+startServer();
+EOF
+
+# 3. src/types.ts
+cat << 'EOF' > src/types.ts
+export interface ContactInfo {
+  phone: string; email: string; address: string;
+  marketedByName: string; marketedBySubName: string; marketedByAddress: string;
+  fssaiMarketed: string; fssaiManufactured: string;
+  manufacturerName: string; manufacturerAddress: string;
+  ingredients: string; brandLogo?: string;
+  heroTitle?: string; heroSubtitle?: string; heroBadge?: string;
+  price250ml?: number; price500ml?: number; price1l?: number;
+  nutritionalInfo: { nutrient: string; quantity: string }[];
+  batchNoLabel: string; mfgDateLabel: string; mrpLabel: string; netQtyLabel: string;
+  productImage250ml?: string; productImage500ml?: string; productImage1l?: string;
+}
+export interface Product { id: string; name: string; size: string; price: number; description: string; image: string; }
+EOF
+
+# 4. src/constants.ts
+cat << 'EOF' > src/constants.ts
+import { ContactInfo, Product } from './types';
+export const INITIAL_CONTACT: ContactInfo = {
+  phone: "+91 8237599344", email: "memoncustom.in@gmail.com", address: "Palghar, Maharashtra",
+  marketedByName: "MEMON CUSTOM", marketedBySubName: "(Sahil Enterprises)", marketedByAddress: "Palghar, Maharashtra",
+  fssaiMarketed: "21526023000448", fssaiManufactured: "10719025000278",
+  manufacturerName: "SHREE HARIKRUSHNA FOOD PRODUCTS", manufacturerAddress: "DADRA & NAGAR HAVELI",
+  ingredients: "TREATED WATER, SALTS OF CALCIUM, MAGNESIUM & SODIUM.",
+  heroTitle: "PURE WATER. PERSONALIZED.", heroSubtitle: "Elevate your brand with premium water.", heroBadge: "Premium Hydration",
+  price250ml: 150, price500ml: 250, price1l: 400,
+  nutritionalInfo: [{ nutrient: 'Calcium', quantity: '1.25 mg' }],
+  batchNoLabel: "see on cap", mfgDateLabel: "see on cap", mrpLabel: "incl. taxes", netQtyLabel: "Net Qty:",
+};
+export const PRODUCTS: Product[] = [
+  { id: '1', name: 'Premium Water Box', size: '250ml', price: 0, description: 'Compact 250ml bottles.', image: 'https://images.unsplash.com/photo-1523362628242-f713a0652241' },
+  { id: '2', name: 'Premium Water Box', size: '500ml', price: 0, description: 'Popular 500ml size.', image: 'https://images.unsplash.com/photo-1560343060-c147b7da1f11' },
+  { id: '3', name: 'Premium Water Box', size: '1 Litre', price: 0, description: 'Generous 1L bottles.', image: 'https://images.unsplash.com/photo-1548919973-5dea585f3968' }
+];
+EOF
+
+# 5. src/index.css
+cat << 'EOF' > src/index.css
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+@theme { --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif; }
+@layer base { html { scroll-behavior: smooth; } }
+EOF
+
+# 6. src/main.tsx
+cat << 'EOF' > src/main.tsx
+import {StrictMode} from 'react';
+import {createRoot} from 'react-dom/client';
+import App from './App.tsx';
+import './index.css';
+createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>);
+EOF
+
+# 7. vite.config.ts
+cat << 'EOF' > vite.config.ts
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'vite';
+export default defineConfig({ plugins: [react(), tailwindcss()], server: { hmr: false } });
+EOF
+
+# 8. index.html
+cat << 'EOF' > index.html
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memon Custom | Luxury Event Hydration</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <style>
-        :root {
-            --gold: #d4af37;
-            --primary: #00ff88;
-            --dark: #0a0a0a;
-            --card: #141414;
-            --text: #ffffff;
-        }
-
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--dark);
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 70vh;
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
-                        url('https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1974&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .hero h1 { font-size: 3.5rem; margin: 0; letter-spacing: 2px; text-transform: uppercase; }
-        .hero p { font-size: 1.2rem; color: #aaa; max-width: 600px; }
-
-        /* Customization Section */
-        .main-container {
-            max-width: 1200px;
-            margin: -100px auto 0;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            position: relative;
-        }
-
-        /* 3D Bottle Mockup */
-        .mockup-container {
-            background: var(--card);
-            border-radius: 30px;
-            padding: 40px;
-            border: 1px solid #222;
-            display: flex;
-            justify-content: center;
-        }
-
-        .square-bottle {
-            width: 260px;
-            height: 520px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 15px;
-            position: relative;
-            box-shadow: inset 0 0 40px rgba(255,255,255,0.05), 0 20px 50px rgba(0,0,0,0.5);
-        }
-
-        .bottle-cap {
-            width: 80px; height: 35px;
-            background: #f0f0f0;
-            margin: -35px auto 0;
-            border-radius: 6px 6px 0 0;
-        }
-
-        .bottle-label {
-            width: 88%;
-            height: 75%;
-            background: white;
-            margin: 15% auto;
-            color: #000;
-            display: flex;
-            flex-direction: column;
-            padding: 12px;
-            box-sizing: border-box;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .label-top {
-            flex: 1;
-            border-bottom: 1.5px solid #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .label-bottom {
-            height: 42%;
-            font-size: 7.5px;
-            padding-top: 8px;
-            line-height: 1.25;
-            text-align: left;
-        }
-
-        /* Form Controls */
-        .controls {
-            background: var(--card);
-            border-radius: 30px;
-            padding: 40px;
-            border: 1px solid #222;
-        }
-
-        .controls h2 { color: var(--gold); margin-top: 0; }
-        
-        input, select {
-            width: 100%; padding: 15px; margin: 10px 0;
-            background: #1a1a1a; border: 1px solid #333;
-            color: white; border-radius: 12px;
-            box-sizing: border-box;
-        }
-
-        .cta-btn {
-            background: var(--gold);
-            color: black;
-            padding: 18px;
-            width: 100%;
-            border: none;
-            border-radius: 12px;
-            font-weight: 800;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-top: 20px;
-            text-transform: uppercase;
-        }
-
-        /* Hospitality Gallery */
-        .gallery { padding: 80px 20px; max-width: 1200px; margin: auto; }
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        .gallery-img {
-            height: 250px;
-            border-radius: 20px;
-            background-size: cover;
-            background-position: center;
-            border: 1px solid #222;
-        }
-
-        footer {
-            padding: 60px 20px;
-            text-align: center;
-            background: #050505;
-            border-top: 1px solid #222;
-        }
-
-        #qrcode {
-            background: white;
-            padding: 10px;
-            display: inline-block;
-            margin-top: 20px;
-            border-radius: 10px;
-        }
-    </style>
-</head>
-<body>
-
-<section class="hero">
-    <h1>MEMON <span style="color:var(--gold)">CUSTOM</span></h1>
-    <p>Bespoke Hydration Solutions for Fine Dining, Resorts, and Premium Events.</p>
-</section>
-
-<div class="main-container">
-    <div class="mockup-container">
-        <div class="square-bottle">
-            <div class="bottle-cap"></div>
-            <div class="bottle-label" id="main-label">
-                <div class="label-top">
-                    <span style="font-size: 8px; margin-bottom: 4px;">Specially packed for</span>
-                    <div id="prev-name" style="font-size: 16px; font-weight: 900; line-height: 1;">YOUR LOGO / BRAND</div>
-                </div>
-                <div class="label-bottom">
-                    <strong>PACKAGED DRINKING WATER</strong><br>
-                    Marketed By: <b>Sahil Enterprises</b><br>
-                    Palghar, Maharashtra - 401404<br>
-                    FSSAI Lic No: 21526023000448<br>
-                    Net Qty: 500ml | Batch: See Neck<br>
-                    <div style="text-align:right; margin-top:4px;">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" width="22">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="controls">
-        <h2>Customization</h2>
-        <p style="color: #888; font-size: 0.9rem;">Preview your brand on our premium square bottle.</p>
-        
-        <label>Brand / Event Name:</label>
-        <input type="text" id="cust-name" placeholder="e.g. Anand Resort" oninput="updatePreview()">
-        
-        <label>Design Aesthetic:</label>
-        <select id="cust-theme" onchange="updatePreview()">
-            <option value="white">Pristine White</option>
-            <option value="gold">Luxury Gold</option>
-            <option value="silver">Brilliant Silver</option>
-        </select>
-
-        <div style="margin: 25px 0; border-top: 1px solid #333; padding-top: 20px;">
-            <div style="color: var(--gold); font-size: 1.4rem; font-weight: 700;">Rate: Get Best Quote</div>
-            <p style="font-size: 0.8rem; color: #666;">Contact for bulk hospitality pricing in Palghar.</p>
-        </div>
-
-        <button class="cta-btn" onclick="sendWhatsApp()">Request Design Quote</button>
-    </div>
-</div>
-
-<section class="gallery">
-    <h2 style="text-align: center; margin-bottom: 40px; text-transform: uppercase;">Hospitality & Dining</h2>
-    <div class="gallery-grid">
-        <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=2070&auto=format&fit=crop');"></div>
-        <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1550966842-28243cd6248c?q=80&w=2071&auto=format&fit=crop');"></div>
-        <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2069&auto=format&fit=crop');"></div>
-    </div>
-</section>
-
-<footer>
-    <p style="font-weight: 700; color: var(--gold); margin-bottom: 5px;">SAHIL ENTERPRISES</p>
-    <p style="color: #888; font-size: 0.9rem;">Palghar, Maharashtra</p>
-    <p style="color: #888; font-size: 0.9rem;">Ph: +91 8237599344 | 7219299344</p>
-    <div id="qrcode"></div>
-    <p style="font-size: 10px; color: #333; margin-top: 40px;">© 2026 Memon Custom. ISO Certified Quality Standards.</p>
-</footer>
-
-<script>
-    // QR Code for the Website Link
-    window.onload = function() {
-        new QRCode(document.getElementById("qrcode"), {
-            text: window.location.href,
-            width: 90, height: 90
-        });
-    };
-
-    // Live Label Preview
-    function updatePreview() {
-        const name = document.getElementById('cust-name').value;
-        const theme = document.getElementById('cust-theme').value;
-        const label = document.getElementById('main-label');
-        
-        document.getElementById('prev-name').innerText = name || "YOUR LOGO / BRAND";
-        
-        if(theme === 'gold') label.style.background = "linear-gradient(135deg, #fceabb, #f8b500)";
-        else if(theme === 'silver') label.style.background = "linear-gradient(135deg, #e6e9f0, #eef1f5)";
-        else label.style.background = "white";
-    }
-
-    // WhatsApp Lead Generation
-    function sendWhatsApp() {
-        const name = document.getElementById('cust-name').value || "Premium Client";
-        const msg = `Hello Memon Custom! I've previewed a design for "${name}" on your website. Please provide your best quote for square bottle customization.`;
-        window.location.href = `https://wa.me/918237599344?text=${encodeURIComponent(msg)}`;
-    }
-</script>
-
-</body>
+  <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Memon Custom</title></head>
+  <body><div id="root"></div><script type="module" src="/src/main.tsx"></script></body>
 </html>
+EOF
+
+echo "Setup complete! Now run 'npm install' and 'npm run dev'."
