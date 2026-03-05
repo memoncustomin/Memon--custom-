@@ -1,123 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Memon Custom | Premium Private Label Water</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memon Custom | Sahil Enterprises</title>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <style>
+        :root {
+            --emerald: #52b788;
+            --dark-bg: #0a0a0a;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
 
-<style>
-body{
-margin:0;
-font-family:Arial, sans-serif;
-background:#0b0b0b;
-color:white;
-text-align:center;
-}
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background: radial-gradient(circle at top right, #1a2e2a, var(--dark-bg));
+            color: white;
+            overflow-x: hidden;
+        }
 
-header{
-padding:40px 20px;
-}
+        /* 1. ROTATING LOGO LOADER */
+        #loader-wrapper {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--dark-bg);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999; transition: opacity 0.5s ease, visibility 0.5s;
+        }
+        .rotating-logo {
+            width: 150px;
+            animation: rotateY 3s linear infinite;
+        }
+        @keyframes rotateY {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+        .hidden { opacity: 0; visibility: hidden; }
 
-h1{
-font-size:34px;
-color:#00b3a4;
-}
+        /* 2. NAVIGATION */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 5%; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px);
+        }
+        .brand h1 { margin: 0; font-size: 1.5rem; letter-spacing: 1px; }
+        .brand span { color: var(--emerald); font-size: 0.8rem; display: block; }
 
-.tagline{
-font-size:18px;
-color:#cccccc;
-}
+        /* 3. HERO SECTION */
+        .hero {
+            text-align: center; padding: 100px 10%;
+            background: url('https://your-image-link-here.com/bg.jpg') no-repeat center/cover;
+        }
+        .hero h2 { font-size: 3.5rem; margin-bottom: 10px; text-transform: uppercase; }
+        .hero p { color: #ccc; margin-bottom: 30px; }
+        .btn {
+            padding: 12px 30px; border-radius: 50px; border: none;
+            cursor: pointer; font-weight: bold; transition: 0.3s; margin: 10px;
+        }
+        .btn-primary { background: var(--emerald); color: black; box-shadow: 0 0 15px var(--emerald); }
+        .btn-outline { background: transparent; border: 1px solid white; color: white; }
 
-.section{
-padding:40px 20px;
-}
+        /* 4. PRODUCT GRID (200ml, 500ml, 1L) */
+        .grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px; padding: 50px 5%;
+        }
+        .glass-card {
+            background: var(--glass); border: 1px solid rgba(255,255,255,0.1);
+            padding: 30px; border-radius: 20px; text-align: center;
+            backdrop-filter: blur(10px); transition: 0.3s;
+        }
+        .glass-card:hover { border-color: var(--emerald); transform: translateY(-10px); }
+        .glass-card img { width: 100px; margin-bottom: 15px; }
 
-.bottle{
-width:220px;
-margin:20px auto;
-}
+        /* 5. SCANNER SECTION */
+        #scanner-section { padding: 50px 5%; text-align: center; background: rgba(0,0,0,0.3); }
+        #reader { margin: 20px auto; border-radius: 15px; overflow: hidden; border: 2px solid var(--emerald) !important; }
 
-button{
-background:#00b3a4;
-color:white;
-border:none;
-padding:15px 25px;
-font-size:16px;
-border-radius:8px;
-cursor:pointer;
-}
-
-button:hover{
-background:#009688;
-}
-
-.contact{
-margin-top:30px;
-font-size:18px;
-}
-
-footer{
-margin-top:40px;
-padding:20px;
-font-size:14px;
-color:#aaaaaa;
-border-top:1px solid #333;
-}
-</style>
+        /* 6. ADMIN / RECENT WORK */
+        #recent-work { padding: 50px 5%; }
+        
+        footer { padding: 50px 5%; background: #050505; border-top: 1px solid var(--glass); text-align: center; }
+        footer a { color: var(--emerald); text-decoration: none; margin: 0 15px; }
+    </style>
 </head>
-
 <body>
 
-<header>
+    <div id="loader-wrapper">
+        <img src="Picsart_26-02-27_10-10-31-395.png" class="rotating-logo" alt="Memon Custom">
+    </div>
 
-<h1>MEMON CUSTOM</h1>
+    <nav>
+        <div class="brand">
+            <h1>MEMON CUSTOM</h1>
+            <span>Sahil Enterprises</span>
+        </div>
+        <div class="nav-links">
+            <a href="#products" style="color:white; margin-left:20px; text-decoration:none;">Products</a>
+            <a href="javascript:void(0)" onclick="openAdmin()" style="color:white; margin-left:20px; text-decoration:none;">Admin Panel</a>
+        </div>
+    </nav>
 
-<p class="tagline">
-Premium Private Label Packaged Drinking Water
-</p>
+    <header class="hero">
+        <p style="color:var(--emerald)">PREMIUM HYDRATION COLLECTION</p>
+        <h2>Pure Water.<br>Powerful Branding.</h2>
+        <p>Elevate your brand with premium packaged drinking water.</p>
+        <button class="btn btn-primary">View Products</button>
+        <button class="btn btn-outline" onclick="document.getElementById('scanner-section').scrollIntoView()">Open Scanner</button>
+    </header>
 
-</header>
+    <section id="products" class="grid">
+        <div class="glass-card">
+            <img src="assets/bottle-200.png" alt="200ml" onerror="this.src='https://via.placeholder.com/100x200?text=200ml'">
+            <h3>200ml Premium</h3>
+            <button class="btn btn-primary" onclick="sendWhatsApp('200ml')">Inquiry Now</button>
+        </div>
+        <div class="glass-card">
+            <img src="assets/bottle-500.png" alt="500ml" onerror="this.src='https://via.placeholder.com/100x200?text=500ml'">
+            <h3>500ml Elite</h3>
+            <button class="btn btn-primary" onclick="sendWhatsApp('500ml')">Inquiry Now</button>
+        </div>
+        <div class="glass-card">
+            <img src="assets/bottle-1L.png" alt="1L" onerror="this.src='https://via.placeholder.com/100x200?text=1L'">
+            <h3>1 Litre Grand</h3>
+            <button class="btn btn-primary" onclick="sendWhatsApp('1 Litre')">Inquiry Now</button>
+        </div>
+    </section>
 
-<div class="section">
+    <section id="scanner-section">
+        <h2>Website Scanner</h2>
+        <p>Scan your bottle QR code directly below.</p>
+        <div id="reader" style="max-width: 500px;"></div>
+    </section>
 
-<h2>Custom Water Bottle Branding</h2>
+    <section id="recent-work">
+        <h2 style="text-align: center;">Recent Work</h2>
+        <div id="admin-gallery" class="grid">
+            </div>
+    </section>
 
-<p>
-We provide premium customized packaged drinking water bottles for events,
-hotels, weddings, corporate branding and personal use.
-</p>
+    <footer>
+        <p>&copy; 2026 Memon Custom | Sahil Enterprises.</p>
+        <p>
+            <a href="https://wa.me/918237599344">WhatsApp: 8237599344</a> | 
+            <a href="tel:7219299344">Call: 7219299344</a>
+        </p>
+        <p>Email: memoncustom.in@gmail.com</p>
+    </footer>
 
-<img src="bottle.jpg" class="bottle">
+    <script>
+        // Hide Loader
+        window.onload = () => {
+            setTimeout(() => {
+                document.getElementById('loader-wrapper').classList.add('hidden');
+            }, 1500);
+            loadWork();
+        };
 
-</div>
+        // WhatsApp Logic (8237599344)
+        function sendWhatsApp(size) {
+            const num = "918237599344";
+            const msg = encodeURIComponent(`Hello Memon Custom! I'm interested in branding for the ${size} bottle.`);
+            window.open(`https://wa.me/${num}?text=${msg}`, '_blank');
+        }
 
-<div class="section">
+        // QR Scanner Logic
+        const html5QrCode = new Html5Qrcode("reader");
+        const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+            alert("Scan Result: " + decodedText);
+            if(decodedText.includes("http")) window.location.href = decodedText;
+        };
+        const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+        html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
 
-<h2>Contact Us</h2>
+        // Admin Panel Logic (Simple Example)
+        const recentWork = [
+            { name: "Dunk Burger", size: "200ml" },
+            { name: "Anand Resort", size: "500ml" }
+        ];
 
-<div class="contact">
+        function loadWork() {
+            const gallery = document.getElementById('admin-gallery');
+            recentWork.forEach(work => {
+                gallery.innerHTML += `
+                    <div class="glass-card">
+                        <div style="height:100px; background:var(--emerald); border-radius:10px; margin-bottom:10px; display:flex; align-items:center; justify-content:center; color:black; font-weight:bold;">${work.name}</div>
+                        <h4>${work.name}</h4>
+                        <p>${work.size} Project</p>
+                    </div>
+                `;
+            });
+        }
 
-<p>📱 WhatsApp: <a href="https://wa.me/918237599344" style="color:#00b3a4;">8237599344</a></p>
-
-<p>📞 Call: <a href="tel:7219299344" style="color:#00b3a4;">7219299344</a></p>
-
-</div>
-
-<br>
-
-<a href="https://wa.me/918237599344">
-<button>Order on WhatsApp</button>
-</a>
-
-</div>
-
-<footer>
-
-<p>Marketed by Sahil Enterprises</p>
-
-<p>Brand: Memon Custom</p>
-
-</footer>
-
+        function openAdmin() {
+            let pass = prompt("Enter Admin Password:");
+            if(pass === "memon123") {
+                let name = prompt("Enter Client Name:");
+                let size = prompt("Enter Bottle Size (200ml/500ml/1L):");
+                if(name && size) {
+                    recentWork.push({name: name, size: size});
+                    document.getElementById('admin-gallery').innerHTML = '';
+                    loadWork();
+                }
+            } else {
+                alert("Access Denied");
+            }
+        }
+    </script>
 </body>
 </html>
