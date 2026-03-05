@@ -1,661 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MEMON CUSTOM - SAHIL ENTERPRISES</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memon Custom | Premium Private Label Water</title>
 
-        body {
-            background-color: #f5f5f5;
-            color: #1a1a1a;
-        }
+<style>
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#0b0b0b;
+color:white;
+text-align:center;
+}
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px 40px;
-        }
+header{
+padding:40px 20px;
+}
 
-        /* Header */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-            border-bottom: 1px solid #e0e0e0;
-        }
+h1{
+font-size:34px;
+color:#00b3a4;
+}
 
-        .logo h1 {
-            font-size: 28px;
-            font-weight: 800;
-            color: #1a1a1a;
-            letter-spacing: -0.5px;
-        }
+.tagline{
+font-size:18px;
+color:#cccccc;
+}
 
-        .logo p {
-            font-size: 14px;
-            color: #666;
-            margin-top: 4px;
-            font-weight: 500;
-        }
+.section{
+padding:40px 20px;
+}
 
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            align-items: center;
-        }
+.bottle{
+width:220px;
+margin:20px auto;
+}
 
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            font-size: 16px;
-        }
+button{
+background:#00b3a4;
+color:white;
+border:none;
+padding:15px 25px;
+font-size:16px;
+border-radius:8px;
+cursor:pointer;
+}
 
-        .contact-info {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
+button:hover{
+background:#009688;
+}
 
-        .contact-info i {
-            color: #FFD700;
-            margin-right: 8px;
-        }
+.contact{
+margin-top:30px;
+font-size:18px;
+}
 
-        /* Hero Section */
-        .hero {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            padding: 60px 0;
-            align-items: center;
-        }
-
-        .hero-content h2 {
-            font-size: 48px;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            color: #002244;
-        }
-
-        .hero-content h2 span {
-            color: #FFD700;
-        }
-
-        .hero-content p {
-            font-size: 18px;
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 20px;
-        }
-
-        .btn-primary {
-            background: #002244;
-            color: white;
-            padding: 15px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-        }
-
-        .btn-whatsapp {
-            background: #25D366;
-            color: white;
-            padding: 15px 35px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-        }
-
-        .hero-image {
-            background: linear-gradient(145deg, #e6f0fa, #d0e0f0);
-            height: 400px;
-            border-radius: 30px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .bottle-preview {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .bottle {
-            width: 80px;
-            height: 200px;
-            background: linear-gradient(145deg, #ffffff, #f0f0f0);
-            border-radius: 40px 40px 20px 20px;
-            position: relative;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border: 2px solid rgba(0,34,68,0.1);
-        }
-
-        .bottle .label {
-            position: absolute;
-            top: 60px;
-            left: 15px;
-            right: 15px;
-            background: #002244;
-            color: white;
-            font-size: 8px;
-            padding: 8px 3px;
-            text-align: center;
-            border-radius: 4px;
-        }
-
-        /* Section Title */
-        .section-title {
-            text-align: center;
-            font-size: 36px;
-            font-weight: 800;
-            color: #002244;
-            margin: 40px 0 20px;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 40px;
-        }
-
-        /* Products Grid */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin: 40px 0;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .product-bottle {
-            width: 100px;
-            height: 200px;
-            background: linear-gradient(145deg, #e6f0fa, #d0e0f0);
-            border-radius: 50px 50px 25px 25px;
-            margin: 0 auto 20px;
-            position: relative;
-        }
-
-        .product-bottle .preview-label {
-            position: absolute;
-            top: 60px;
-            left: 15px;
-            right: 15px;
-            background: #002244;
-            color: white;
-            font-size: 8px;
-            padding: 5px;
-            text-align: center;
-        }
-
-        .product-card h3 {
-            font-size: 24px;
-            color: #002244;
-            margin: 15px 0 5px;
-            font-weight: 700;
-        }
-
-        .product-card p {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .product-card .tagline {
-            color: #FFD700;
-            font-weight: 600;
-            margin: 10px 0;
-        }
-
-        .product-card .size {
-            font-weight: 700;
-            color: #002244;
-            margin: 10px 0;
-        }
-
-        /* Order Section */
-        .order-section {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            margin: 40px 0;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-        }
-
-        .order-box {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-
-        .order-left h3 {
-            font-size: 24px;
-            color: #002244;
-            margin-bottom: 10px;
-        }
-
-        .order-quantity {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .quantity-selector {
-            display: flex;
-            align-items: center;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .quantity-btn {
-            background: #f5f5f5;
-            border: none;
-            padding: 10px 20px;
-            font-size: 18px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .quantity-input {
-            width: 60px;
-            text-align: center;
-            border: none;
-            border-left: 2px solid #e0e0e0;
-            border-right: 2px solid #e0e0e0;
-            padding: 10px;
-            font-size: 16px;
-        }
-
-        .order-note {
-            color: #666;
-            font-size: 14px;
-            margin: 10px 0;
-        }
-
-        .order-price {
-            text-align: right;
-        }
-
-        .order-price .price {
-            font-size: 32px;
-            font-weight: 800;
-            color: #002244;
-        }
-
-        .order-price .price span {
-            font-size: 16px;
-            color: #666;
-            font-weight: normal;
-        }
-
-        .request-btn {
-            background: #002244;
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 20px;
-            width: 100%;
-        }
-
-        .note-text {
-            font-size: 12px;
-            color: #999;
-            margin-top: 15px;
-            font-style: italic;
-        }
-
-        /* Specially Packed Section */
-        .packed-section {
-            background: linear-gradient(145deg, #f8f8f8, #ffffff);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            margin: 40px 0;
-        }
-
-        .packed-box {
-            display: inline-block;
-            padding: 30px 60px;
-            border: 3px dashed #002244;
-            border-radius: 20px;
-        }
-
-        .packed-box h3 {
-            font-size: 24px;
-            color: #002244;
-            margin-bottom: 20px;
-        }
-
-        .packed-box .logo-placeholder {
-            width: 200px;
-            height: 100px;
-            background: #f0f0f0;
-            border: 2px solid #002244;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #002244;
-            font-weight: bold;
-        }
-
-        /* Footer */
-        .footer {
-            background: #002244;
-            color: white;
-            padding: 60px 0 20px;
-            margin-top: 60px;
-            border-radius: 40px 40px 0 0;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 40px;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
-        }
-
-        .footer-section h3 {
-            color: #FFD700;
-            margin-bottom: 20px;
-            font-size: 18px;
-        }
-
-        .footer-section p {
-            margin-bottom: 12px;
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .footer-section i {
-            margin-right: 10px;
-            color: #FFD700;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            opacity: 0.9;
-            font-size: 14px;
-        }
-
-        .copyright {
-            text-align: center;
-            padding: 30px 40px 0;
-            margin-top: 40px;
-            border-top: 1px solid #334466;
-            font-size: 14px;
-            opacity: 0.8;
-        }
-
-        .copyright a {
-            color: #FFD700;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-            
-            .hero {
-                grid-template-columns: 1fr;
-            }
-            
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .order-box {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-    </style>
+footer{
+margin-top:40px;
+padding:20px;
+font-size:14px;
+color:#aaaaaa;
+border-top:1px solid #333;
+}
+</style>
 </head>
+
 <body>
 
-    <!-- Header -->
-    <div class="container">
-        <div class="header">
-            <div class="logo">
-                <h1>MEMON CUSTOM</h1>
-                <p>SAHIL ENTERPRISES</p>
-            </div>
-            <div class="nav-links">
-                <a href="#">Products</a>
-                <a href="#">Customizer</a>
-                <a href="#">Our Story</a>
-                <a href="#">Admin Settings</a>
-                <div class="contact-info">
-                    <span><i class="fas fa-phone"></i> +91 8237599344</span>
-                    <span><i class="fab fa-whatsapp"></i> 7219299344</span>
-                </div>
-            </div>
-        </div>
+<header>
 
-        <!-- Hero Section -->
-        <div class="hero">
-            <div class="hero-content">
-                <h2>PURE WATER, <span>PERSONALIZED</span></h2>
-                <p>Elevate your brand with premium packaged drinking water. Custom labeling for corporate events, weddings, and luxury hospitality.</p>
-                <div class="hero-buttons">
-                    <a href="#" class="btn-primary">Visit Website</a>
-                    <a href="#" class="btn-whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
-                </div>
-                <p style="margin-top: 20px; font-weight: 500;">Try Customizer →</p>
-            </div>
-            <div class="hero-image">
-                <div class="bottle-preview">
-                    <div class="bottle">
-                        <div class="label">YOUR LOGO</div>
-                    </div>
-                    <div class="bottle">
-                        <div class="label">YOUR LOGO</div>
-                    </div>
-                    <div class="bottle">
-                        <div class="label">YOUR LOGO</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<h1>MEMON CUSTOM</h1>
 
-        <!-- Section Title -->
-        <h2 class="section-title">OUR COLLECTION</h2>
-        <p class="section-subtitle">Available in Premium Plastic Packaging</p>
+<p class="tagline">
+Premium Private Label Packaged Drinking Water
+</p>
 
-        <!-- Products Grid -->
-        <div class="products-grid">
-            <!-- 250ml -->
-            <div class="product-card">
-                <div class="product-bottle">
-                    <div class="preview-label">YOUR LOGO</div>
-                </div>
-                <h3>250ml</h3>
-                <p>Premium Water Box</p>
-                <p style="margin-top: 10px;">Compact and convenient 250ml bottles, perfect for events and quick hydration.</p>
-                <div class="tagline">Pure & Refreshing</div>
-                <div class="size">250ML | 500ML | 1L</div>
-            </div>
+</header>
 
-            <!-- 1 Litre -->
-            <div class="product-card">
-                <div class="product-bottle" style="height: 220px;">
-                    <div class="preview-label">YOUR LOGO</div>
-                </div>
-                <h3>1 Litre</h3>
-                <p>Premium Water Box</p>
-                <p style="margin-top: 10px;">Generous 1 Litre bottles for extended hydration needs throughout the day.</p>
-                <div class="tagline">Pure & Refreshing</div>
-                <div class="size">250ML | 500ML | 1L</div>
-            </div>
+<div class="section">
 
-            <!-- 500ml -->
-            <div class="product-card">
-                <div class="product-bottle" style="height: 210px;">
-                    <div class="preview-label">YOUR LOGO</div>
-                </div>
-                <h3>500ml</h3>
-                <p>Premium Water Box</p>
-                <p style="margin-top: 10px;">Perfect medium size for meetings, events, and everyday use.</p>
-                <div class="tagline">Pure & Refreshing</div>
-                <div class="size">250ML | 500ML | 1L</div>
-            </div>
-        </div>
+<h2>Custom Water Bottle Branding</h2>
 
-        <!-- Order Section -->
-        <div class="order-section">
-            <div class="order-box">
-                <div class="order-left">
-                    <h3>ORDER QUANTITY (BOXES)</h3>
-                    <div class="order-quantity">
-                        <div class="quantity-selector">
-                            <button class="quantity-btn" onclick="decrement()">-</button>
-                            <input type="text" class="quantity-input" id="quantity" value="10" readonly>
-                            <button class="quantity-btn" onclick="increment()">+</button>
-                        </div>
-                    </div>
-                    <p class="order-note">Note: 500ml box contains 24 bottles.</p>
-                </div>
-                <div class="order-price">
-                    <div class="price" id="price">₹1600 <span>total</span></div>
-                </div>
-            </div>
-            <button class="request-btn" onclick="requestDesign()">Request This Design</button>
-            <p class="note-text">NOTE: THE DIGITAL PREVIEW IS FOR VISUALIZATION. ACTUAL LABEL DESIGN AND COLORS MAY VARY.</p>
-        </div>
+<p>
+We provide premium customized packaged drinking water bottles for events,
+hotels, weddings, corporate branding and personal use.
+</p>
 
-        <!-- Specially Packed Section -->
-        <div class="packed-section">
-            <div class="packed-box">
-                <h3>SPECIALLY PACKED FOR</h3>
-                <div class="logo-placeholder">
-                    YOUR LOGO HERE
-                </div>
-            </div>
-        </div>
-    </div>
+<img src="bottle.jpg" class="bottle">
 
-    <!-- Footer -->
-    <div class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>MEMON CUSTOM</h3>
-                <p>SAHIL ENTERPRISES</p>
-                <p>Premium custom bottled water for every occasion.</p>
-            </div>
-            <div class="footer-section">
-                <h3>Contact Details</h3>
-                <p><i class="fas fa-phone"></i> +91 8237599344</p>
-                <p><i class="fab fa-whatsapp"></i> +91 7219299344</p>
-                <p><i class="fas fa-envelope"></i> memoncustom.in@gmail.com</p>
-                <p><i class="fas fa-map-marker-alt"></i> Palghar, Maharashtra</p>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Products</a></li>
-                    <li><a href="#">Customizer</a></li>
-                    <li><a href="#">Our Story</a></li>
-                    <li><a href="#">Admin Settings</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Follow Us</h3>
-                <p><i class="fab fa-instagram"></i> Instagram</p>
-                <p><i class="fab fa-facebook"></i> Facebook</p>
-                <p><i class="fab fa-whatsapp"></i> WhatsApp</p>
-            </div>
-        </div>
-        <div class="copyright">
-            © 2024 SAHIL ENTERPRISES. ALL RIGHTS RESERVED.
-            <br>
-            <a href="#">PRIVACY POLICY</a> | <a href="#">TERMS OF SERVICE</a>
-        </div>
-    </div>
+</div>
 
-    <script>
-        function increment() {
-            let quantity = document.getElementById('quantity');
-            let value = parseInt(quantity.value);
-            quantity.value = value + 1;
-            updatePrice();
-        }
+<div class="section">
 
-        function decrement() {
-            let quantity = document.getElementById('quantity');
-            let value = parseInt(quantity.value);
-            if (value > 1) {
-                quantity.value = value - 1;
-                updatePrice();
-            }
-        }
+<h2>Contact Us</h2>
 
-        function updatePrice() {
-            let quantity = parseInt(document.getElementById('quantity').value);
-            let price = quantity * 160;
-            document.getElementById('price').innerHTML = '₹' + price + ' <span>total</span>';
-        }
+<div class="contact">
 
-        function requestDesign() {
-            let quantity = document.getElementById('quantity').value;
-            let message = "Hi, I want to request custom bottled water. Quantity: " + quantity + " boxes";
-            window.open('https://wa.me/917219293344?text=' + encodeURIComponent(message));
-        }
-    </script>
+<p>📱 WhatsApp: <a href="https://wa.me/918237599344" style="color:#00b3a4;">8237599344</a></p>
+
+<p>📞 Call: <a href="tel:7219299344" style="color:#00b3a4;">7219299344</a></p>
+
+</div>
+
+<br>
+
+<a href="https://wa.me/918237599344">
+<button>Order on WhatsApp</button>
+</a>
+
+</div>
+
+<footer>
+
+<p>Marketed by Sahil Enterprises</p>
+
+<p>Brand: Memon Custom</p>
+
+</footer>
 
 </body>
-    </html>
+</html>
