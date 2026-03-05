@@ -29,13 +29,38 @@
             backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .nav-logo { display: flex; align-items: center; gap: 10px; }
-        .nav-logo img { height: 35px; }
+        .nav-logo { display: flex; align-items: center; gap: 12px; }
+        .nav-logo img { height: 45px; width: auto; }
 
         /* HERO SECTION */
         .hero { padding: 80px 5% 40px; }
         .hero h2 { font-size: 2.8rem; text-transform: uppercase; margin: 0; }
         .highlight { color: var(--emerald); }
+
+        /* SECTOR IMAGES SECTION */
+        .work-categories { padding: 40px 5%; }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+        .category-card {
+            background: var(--glass);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.4s ease;
+        }
+        .category-card img { 
+            width: 100%; 
+            height: 220px; 
+            object-fit: cover; 
+            opacity: 0.8; 
+            transition: 0.4s;
+        }
+        .category-card:hover { border-color: var(--emerald); transform: translateY(-8px); }
+        .category-card:hover img { opacity: 1; }
+        .category-card h4 { padding: 15px; margin: 0; letter-spacing: 1px; font-size: 0.9rem; }
 
         /* PRODUCT CARDS */
         .product-grid {
@@ -49,9 +74,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 40px 20px;
-            transition: 0.3s;
         }
-        .glass-card:hover { border-color: var(--emerald); transform: translateY(-5px); }
 
         .btn-wa {
             background: var(--emerald);
@@ -62,95 +85,84 @@
             font-weight: bold;
             display: inline-block;
             margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(82, 183, 136, 0.3);
         }
 
-        /* QR GALLERY */
-        .qr-section { padding: 60px 5%; background: rgba(0,0,0,0.3); }
-        .qr-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-        .qr-item {
-            background: white;
-            padding: 15px;
-            border-radius: 15px;
-            color: black;
-        }
-        .qr-item img { width: 100%; height: auto; border-radius: 10px; }
-
-        footer { padding: 40px; border-top: 1px solid #222; font-size: 0.9rem; color: #666; }
+        footer { padding: 60px 5%; border-top: 1px solid #222; font-size: 0.9rem; color: #777; }
     </style>
 </head>
 <body>
 
     <nav>
         <div class="nav-logo">
-            <img src="Picsart_26-02-27_10-10-31-395.png" alt="Memon Custom">
+            <img src="Picsart_26-02-27_10-10-31-395.png" alt="Memon Custom Logo">
             <div style="text-align:left">
                 <strong style="display:block; letter-spacing:1px;">MEMON CUSTOM</strong>
                 <small style="color:var(--emerald)">Sahil Enterprises</small>
             </div>
         </div>
-        </nav>
+    </nav>
 
-    <section class="hero">
+    <header class="hero">
         <h2>Pure Water. <br><span class="highlight">Powerful Branding.</span></h2>
-        <p>Premium customized water solutions for your business.</p>
+        <p>Premium custom labels for the hospitality and corporate sectors.</p>
+    </header>
+
+    <section class="work-categories">
+        <div class="category-grid">
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=600" alt="Resorts">
+                <h4>HOSPITALITY & RESORTS</h4>
+            </div>
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=600" alt="Cafes">
+                <h4>PREMIUM CAFES</h4>
+            </div>
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=600" alt="Restaurants">
+                <h4>FINE DINING</h4>
+            </div>
+            <div class="category-card">
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=600" alt="Offices">
+                <h4>CORPORATE OFFICES</h4>
+            </div>
+        </div>
     </section>
 
     <section class="product-grid">
         <div class="glass-card">
             <h3>200ml Premium</h3>
-            <p>Best for Events & Luxury Hotels.</p>
-            <a href="https://wa.me/918237599344?text=Interested%20in%20200ml" class="btn-wa">Inquiry Now</a>
+            <p>Perfect for corporate meetings and luxury event kits.</p>
+            <a href="https://wa.me/918237599344?text=Interested%20in%20200ml%20Branding" class="btn-wa">Inquiry Now</a>
         </div>
         <div class="glass-card">
             <h3>500ml Elite</h3>
-            <p>Best for Cafes & Restaurants.</p>
-            <a href="https://wa.me/918237599344?text=Interested%20in%20500ml" class="btn-wa">Inquiry Now</a>
+            <p>The preferred choice for cafes and dining tables.</p>
+            <a href="https://wa.me/918237599344?text=Interested%20in%20500ml%20Branding" class="btn-wa">Inquiry Now</a>
         </div>
         <div class="glass-card">
             <h3>1 Litre Grand</h3>
-            <p>Best for Resorts & Guesthouses.</p>
-            <a href="https://wa.me/918237599344?text=Interested%20in%201L" class="btn-wa">Inquiry Now</a>
-        </div>
-    </section>
-
-    <section class="qr-section">
-        <h2>Active Project Gallery</h2>
-        <div id="qr-display" class="qr-container">
-            <div class="qr-item">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=DunkBurger" alt="Dunk Burger">
-                <h4>Dunk Burger</h4>
-            </div>
+            <p>Ideal for resort rooms and bulk supply requirements.</p>
+            <a href="https://wa.me/918237599344?text=Interested%20in%201Litre%20Branding" class="btn-wa">Inquiry Now</a>
         </div>
     </section>
 
     <footer>
-        <p>Contact WhatsApp: 8237599344 | Call: 7219299344</p>
-        <p>Email: memoncustom.in@gmail.com</p>
-        <p>Palghar, Maharashtra</p>
+        <p>WhatsApp: 8237599344 | Call: 7219299344</p>
+        <p>memoncustom.in@gmail.com | Palghar, Maharashtra</p>
     </footer>
 
     <script>
-        // HIDDEN ADMIN ACCESS: Press 'L' to login
+        // HIDDEN ADMIN: Press 'L' to Login
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'l' || e.key === 'L') {
-                adminAccess();
+            if (e.key.toLowerCase() === 'l') {
+                const u = prompt("Admin User:");
+                const p = prompt("Admin Password:");
+                if(u === "sahil" && p === "memon721") {
+                   alert("Admin Login Successful.");
+                }
             }
         });
-
-        function adminAccess() {
-            const user = prompt("Username:");
-            const pass = prompt("Password:");
-
-            // Secret Credentials
-            if(user === "sahil" && pass === "memon721") {
-                let client = prompt("Enter Client Name to add QR:");
-                if(client) {
-                    const display = document.getElementById('qr-display');
-                    display.innerHTML += `
-                        <div class="qr-item">
-                            <img src="
+    </script>
+</body>
+</html>
