@@ -1,455 +1,484 @@
+<think>
+The user wants the full attached code for their website. They want everything in one complete HTML file that includes:
+1. Dark theme with Teal Blue and Neon effects
+2. 3 bottle sizes (250ml, 500ml, 1Ltr)
+3. Logo upload/preview feature
+4. 5 lifestyle images (Hospitality, Dining, Cafe, Office, Events)
+5. WhatsApp integration
+6. Contact information (their details)
+7. Admin panel placeholder
+8. Hamburger menu navigation
+9. All their brand details (Memon Custom, Sahil Enterprises, contact info, address)
+
+I need to create a complete, single-file HTML solution that they can copy-paste and upload to GitHub. This should include all CSS and JavaScript inline so it's truly a single file they can use immediately.
+
+Let me create a comprehensive, production-ready HTML file with all their requirements.
+</think># Complete Website Code for Memon Custom
+
+Here is the **full, complete code** for your website. Copy this entire code into a file named `index.html` and upload it to your GitHub repository.
+
+---
+
+## Full HTML Code (Copy Everything Below)
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memon Custom | Premium Personalized Water</title>
+    <title>Memon Custom | Premium Square Water Bottles</title>
+    <meta name="description" content="Premium Custom Square Water Bottles for Events & Brands - Memon Custom (Sahil Enterprises)">
     <style>
-        :root {
-            --primary: #007bff; /* Water Blue */
-            --secondary: #0056b3;
-            --accent: #f8f9fa;
-            --text: #333;
-            --white: #ffffff;
+        /* ===== GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
+            background: #0A0A0A;
+            color: #E0F7FA;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f7f6;
-            color: var(--text);
+            line-height: 1.6;
         }
 
-        /* --- Header --- */
-        header {
-            background: var(--white);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            padding: 1rem 5%;
+        /* ===== NEON EFFECTS ===== */
+        .neon-text {
+            color: #008080;
+            text-shadow: 0 0 10px #008080, 0 0 20px #008080;
+        }
+
+        .neon-border {
+            border: 2px solid #008080;
+            box-shadow: 0 0 10px #008080;
+        }
+
+        .neon-btn {
+            background: #000;
+            color: #008080;
+            border: 2px solid #008080;
+            padding: 15px 30px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+            border-radius: 50px;
+            box-shadow: 0 0 10px #008080;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .neon-btn:hover {
+            box-shadow: 0 0 20px #008080, 0 0 30px #008080;
+            transform: scale(1.05);
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            background: #121212;
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid #008080;
+        }
+
+        .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .brand-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .brand-name {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .legal-name {
-            font-size: 0.8rem;
-            color: #666;
-            font-weight: 400;
-        }
-
-        .contact-btn {
-            background-color: #25D366;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* --- Hero Section --- */
-        .hero {
-            text-align: center;
-            padding: 3rem 1rem;
-            background: linear-gradient(135deg, #e0f7fa 0%, #ffffff 100%);
-        }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: #555;
-            max-width: 600px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        /* --- Customization Section --- */
-        .customizer-container {
-            display: flex;
-            flex-wrap: wrap;
-            padding: 2rem 5%;
-            gap: 2rem;
-            justify-content: center;
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #008080;
+            text-shadow: 0 0 10px #008080;
         }
 
-        .controls {
-            flex: 1;
-            min-width: 300px;
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        .hamburger {
+            font-size: 30px;
+            cursor: pointer;
+            color: #008080;
+        }
+
+        .nav-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #121212;
+            border-bottom: 2px solid #008080;
+        }
+
+        .nav-menu.active {
+            display: block;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 15px 20px;
+            color: #E0F7FA;
+            text-decoration: none;
+            border-bottom: 1px solid #008080;
+        }
+
+        .nav-menu a:hover {
+            background: #008080;
+            color: #000;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding: 150px 20px 100px;
+            text-align: center;
+            background: linear-gradient(135deg, #0A0A0A 0%, #121212 100%);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #008080;
+            text-shadow: 0 0 20px #008080;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #B0B0B0;
+        }
+
+        /* ===== BOTTLE SIZES ===== */
+        .bottles-section {
+            padding: 80px 20px;
+            background: #0F0F0F;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #008080;
+            text-shadow: 0 0 10px #008080;
+        }
+
+        .bottles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .bottle-card {
+            background: #121212;
+            border: 2px solid #008080;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 0 15px #008080;
+            transition: all 0.3s ease;
+        }
+
+        .bottle-card:hover {
+            box-shadow: 0 0 25px #008080;
+            transform: translateY(-5px);
+        }
+
+        .bottle-card h3 {
+            font-size: 28px;
+            color: #008080;
+            margin-bottom: 15px;
+        }
+
+        .bottle-card p {
+            color: #B0B0B0;
+            margin-bottom: 20px;
+        }
+
+        /* ===== CUSTOMIZATION SECTION ===== */
+        .customization-section {
+            padding: 80px 20px;
+            background: #0A0A0A;
+        }
+
+        .customization-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
         }
 
         .preview-area {
-            flex: 1;
-            min-width: 300px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #eef2f5;
-            border-radius: 12px;
-            padding: 2rem;
+            width: 350px;
+            height: 450px;
+            border: 2px solid #008080;
             position: relative;
-        }
-
-        /* Form Elements */
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        input[type="text"], select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 1rem;
-        }
-
-        .file-upload {
-            border: 2px dashed #ccc;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            border-radius: 6px;
-        }
-
-        /* --- The Bottle Design --- */
-        .bottle-wrapper {
-            position: relative;
-            width: 200px;
-            height: 400px;
-            background: rgba(255, 255, 255, 0.6);
-            border: 2px solid rgba(255, 255, 255, 0.8);
-            border-radius: 40px 40px 20px 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            overflow: hidden;
+            background: #121212;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
         }
 
-        /* Bottle Cap */
-        .bottle-cap {
-            width: 60px;
-            height: 40px;
-            background: #333;
+        .preview-area img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .logo-preview {
             position: absolute;
-            top: -40px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 150px;
+            display: none;
+            box-shadow: 0 0 15px #008080;
+        }
+
+        .upload-area {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .upload-area input[type="file"] {
+            margin: 20px 0;
+            padding: 15px;
+            border: 2px solid #008080;
             border-radius: 5px;
+            background: #121212;
+            color: #E0F7FA;
         }
 
-        /* The Label */
-        .bottle-label {
-            width: 100%;
-            height: 280px;
-            background: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px;
-            box-sizing: border-box;
-            position: relative;
-            border: 1px solid #eee;
+        /* ===== LIFESTYLE GALLERY ===== */
+        .lifestyle-section {
+            padding: 80px 20px;
+            background: #0F0F0F;
         }
 
-        .label-top {
-            width: 100%;
-            text-align: center;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-        }
-
-        .brand-logo-text {
-            font-weight: 900;
-            font-size: 1.2rem;
-            color: var(--primary);
-            text-transform: uppercase;
-        }
-
-        .qr-placeholder {
-            width: 40px;
-            height: 40px;
-            background: #000;
-            margin: 5px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 8px;
-        }
-
-        .label-center {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100px;
-        }
-
-        .customer-logo-preview {
-            max-width: 100px;
-            max-height: 100px;
-            object-fit: contain;
-            border: 1px solid #ddd;
-            padding: 2px;
-        }
-
-        .label-bottom {
-            width: 100%;
-            text-align: center;
-            font-size: 0.6rem;
-            color: #555;
-            line-height: 1.2;
-            border-top: 1px solid #eee;
-            padding-top: 5px;
-        }
-
-        .disclaimer {
-            font-size: 0.5rem;
-            color: #999;
-            margin-top: 5px;
-            font-style: italic;
-        }
-
-        /* --- Use Cases --- */
-        .use-cases {
-            padding: 3rem 5%;
-            text-align: center;
-        }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        /* --- Footer --- */
-        footer {
-            background: #222;
-            color: white;
-            padding: 3rem 5%;
-            margin-top: 3rem;
-        }
-
-        .footer-grid {
+        .lifestyle-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
+        .lifestyle-card {
+            border: 2px solid #008080;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px #008080;
+        }
+
+        .lifestyle-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .lifestyle-card h3 {
+            padding: 15px;
+            background: #008080;
+            color: #000;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact-section {
+            padding: 80px 20px;
+            background: #0A0A0A;
+        }
+
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .contact-info {
+            background: #121212;
+            padding: 30px;
+            border: 2px solid #008080;
+            border-radius: 10px;
+        }
+
+        .contact-info p {
+            margin: 15px 0;
+            font-size: 18px;
+        }
+
+        .contact-info a {
+            color: #008080;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-shadow: 0 0 10px #008080;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #050505;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 2px solid #008080;
+        }
+
+        footer p {
+            color: #B0B0B0;
+            margin: 10px 0;
+        }
+
+        footer .company-name {
+            color: #008080;
+            font-weight: bold;
+        }
+
+        /* ===== WHATSAPP FLOATING BUTTON ===== */
         .whatsapp-float {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #25D366;
-            color: white;
-            width: 60px;
-            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-            z-index: 2000;
-            text-decoration: none;
+            box-shadow: 0 0 20px #25D366;
+            z-index: 1000;
+            transition: all 0.3s ease;
         }
 
-        /* Helper for hidden file input */
-        #logoInput {
-            display: none;
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px #25D366;
+        }
+
+        .whatsapp-float img {
+            width: 40px;
+            height: 40px;
+        }
+
+        /* ===== ADMIN LOGIN ===== */
+        .admin-login {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: #000;
+            color: #008080;
+            padding: 10px 20px;
+            border: 2px solid #008080;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            z-index: 1000;
+        }
+
+        .admin-login:hover {
+            box-shadow: 0 0 10px #008080;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .nav-menu.active {
+                display: block;
+            }
+            
+            .customization-container {
+                flex-direction: column;
+            }
+            
+            .preview-area {
+                width: 100%;
+                max-width: 350px;
+            }
         }
     </style>
 </head>
 <body>
-
-    <!-- Header -->
-    <header>
-        <div class="brand-container">
-            <div class="brand-name">Memon Custom</div>
-            <div class="legal-name">A Unit of Sahil Enterprises</div>
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">MEMON CUSTOM</div>
+            <div class="hamburger" onclick="toggleMenu()">☰</div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#home">Home</a>
+                <a href="#bottles">Products</a>
+                <a href="#customization">Customize</a>
+                <a href="#lifestyle">Gallery</a>
+                <a href="#contact">Contact</a>
+                <a href="#admin">Admin Login</a>
+            </div>
         </div>
-        <a href="https://wa.me/918275993444" class="contact-btn">
-            <span>Chat on WhatsApp</span>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <h1 class="neon-text">MEMON CUSTOM</h1>
+        <p>A Sahil Enterprises Brand</p>
+        <p>Premium Square Water Bottles for Your Brand</p>
+        <a href="https://wa.me/918237599344?text=Hi%20Memon%20Custom,%20I%20want%20to%20inquire%20about%20custom%20water%20bottles" 
+           class="neon-btn" target="_blank">
+            Chat on WhatsApp
         </a>
-    </header>
-
-    <!-- Hero -->
-    <section class="hero">
-        <h1>Pure Water. Personalized.</h1>
-        <p>Premium packaging for your brand. Perfect for events, cafes, and hospitality.</p>
+        <a href="#bottles" class="neon-btn">View Products</a>
     </section>
 
-    <!-- Customizer -->
-    <section class="customizer-container">
-        
-        <!-- Controls -->
-        <div class="controls">
-            <h2>Design Your Label</h2>
-            
-            <div class="form-group">
-                <label>Select Bottle Size</label>
-                <select id="sizeSelect" onchange="updateQuantity()">
-                    <option value="250">250ml (48 bottles/box)</option>
-                    <option value="500">500ml (24 bottles/box)</option>
-                    <option value="1000">1L (12 bottles/box)</option>
-                </select>
+    <!-- BOTTLE SIZES SECTION -->
+    <section class="bottles-section" id="bottles">
+        <h2 class="section-title">Choose Your Size</h2>
+        <div class="bottles-grid">
+            <div class="bottle-card">
+                <h3>250ml</h3>
+                <p>Perfect for corporate gifts and small events</p>
+                <a href="https://wa.me/918237599344?text=Interested%20in%20250ml%20bottle" 
+                   class="neon-btn" target="_blank">Customize Now</a>
             </div>
-
-            <div class="form-group">
-                <label>Quantity (Boxes)</label>
-                <input type="number" id="boxQty" value="1" min="1">
+            <div class="bottle-card">
+                <h3>500ml</h3>
+                <p>Best for daily use and office events</p>
+                <a href="https://wa.me/918237599344?text=Interested%20in%20500ml%20bottle" 
+                   class="neon-btn" target="_blank">Customize Now</a>
             </div>
-
-            <div class="form-group">
-                <label>Upload Your Logo (Square Shape)</label>
-                <div class="file-upload" onclick="document.getElementById('logoInput').click()">
-                    Click to Upload Image
-                </div>
-                <input type="file" id="logoInput" accept="image/*" onchange="previewLogo(event)">
-            </div>
-
-            <div class="form-group">
-                <label>Your Brand Name (Top of Label)</label>
-                <input type="text" id="brandNameInput" placeholder="e.g. My Cafe Water" oninput="updateLabel()">
-            </div>
-
-            <div class="form-group">
-                <label>Customer Contact Info (Bottom of Label)</label>
-                <input type="text" id="contactInfoInput" placeholder="e.g. +91 98765 43210" oninput="updateLabel()">
-            </div>
-
-            <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-top: 20px;">
-                <h3>Order Summary</h3>
-                <p><strong>Size:</strong> <span id="displaySize">250ml</span></p>
-                <p><strong>Total Bottles:</strong> <span id="displayTotalBottles">48</span></p>
-                <p><strong>Boxes:</strong> <span id="displayBoxes">1</span></p>
-                <p style="font-size: 0.9rem; color: #666;">*Pricing is calculated per box. Please request a quote.</p>
-            </div>
-
-            <a href="#" id="whatsappOrderBtn" class="contact-btn" style="width: 100%; justify-content: center; margin-top: 1rem;">
-                Request Price on WhatsApp
-            </a>
-        </div>
-
-        <!-- Preview Area -->
-        <div class="preview-area">
-            <div class="bottle-wrapper">
-                <div class="bottle-cap"></div>
-                <div class="bottle-label">
-                    <!-- Top Section -->
-                    <div class="label-top">
-                        <div class="brand-logo-text">Memon Custom</div>
-                        <div class="qr-placeholder">SCAN</div>
-                    </div>
-
-                    <!-- Middle Section (Customer Logo) -->
-                    <div class="label-center">
-                        <img id="previewImg" src="" alt="Your Logo" class="customer-logo-preview" style="display:none;">
-                        <span id="placeholderText" style="color:#ccc; font-size:0.8rem;">Your Logo Here</span>
-                    </div>
-
-                    <!-- Bottom Section -->
-                    <div class="label-bottom">
-                        <div id="labelContact">Contact: +91 8275993444</div>
-                        <div>Palghar, Maharashtra</div>
-                        <div class="disclaimer">Label design may vary</div>
-                    </div>
-                </div>
+            <div class="bottle-card">
+                <h3>1Ltr</h3>
+                <p>Ideal for sports, outdoor events, and large gatherings</p>
+                <a href="https://wa.me/918237599344?text=Interested%20in%201Ltr%20bottle" 
+                   class="neon-btn" target="_blank">Customize Now</a>
             </div>
         </div>
     </section>
 
-    <!-- Use Cases -->
-    <section class="use-cases">
-        <h2>Perfect For</h2>
-        <div class="grid">
-            <div class="card">🏨 Hospitality</div>
-            <div class="card">🍽️ Restaurants</div>
-            <div class="card">☕ Cafes</div>
-            <div class="card">🎉 Events</div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-grid">
-            <div>
-                <h3>Memon Custom</h3>
-                <p>A Unit of Sahil Enterprises</p>
-                <p>Palghar, Maharashtra 401404</p>
+    <!-- CUSTOMIZATION SECTION -->
+    <section class="customization-section" id="customization">
+        <h2 class="section-title">Customize Your Bottle</h2>
+        <div class="customization-container">
+            <div class="preview-area">
+                <img src="https://via.placeholder.com/350x450/000000/008080?text=Bottle+Preview" alt="Bottle Template">
+                <img id="logo-preview" class="logo-preview" src="" alt="Your Logo">
             </div>
-            <div>
-                <h3>Contact Us</h3>
-                <p>📞 8275993444 (Main)</p>
-                <p>📞 7219299344 (Secondary)</p>
-                <p>✉️ memoncustom.in@gmail.com</p>
-            </div>
-        </div>
-        <div style="text-align: center; margin-top: 2rem; border-top: 1px solid #444; padding-top: 1rem;">
-            &copy; 2023 Sahil Enterprises. All rights reserved.
-        </div>
-    </footer>
-
-    <!-- Floating WhatsApp -->
-    <a href="https://wa.me/918275993444" class="whatsapp-float" target="_blank">
-        💬
-    </a>
-
-    <script>
-        // Configuration
-        const mainPhone = "918275993444";
-        const secondaryPhone = "917219299344";
-        const email = "memoncustom.in@gmail.com";
-
-        // Logic to update bottle preview
-        function updateLabel() {
-            const brandName = document.getElementById('brandNameInput').value;
-            const contactInfo = document.getElementById('contactInfoInput').value;
-            
-            // Update the label text
-            const labelContact = document.getElementById('labelContact');
-            if(contactInfo) {
-                labelContact.innerHTML = `Contact: ${contactInfo}<br>Palghar, Maharashtra`;
-            } else {
-                labelContact.innerHTML = `Contact: +91 8275993444<br>Palghar, Maharashtra`;
-            }
-        }
+            <div class="upload-area">
+                <h3 style="color: #008080; margin-bottom: 20px;">Upload Your Logo</h3>
+                <p style="color: #B0B0B0; margin-bottom: 20px;">Supported formats: PNG, JPG, SVG (Max 5MB)</p>
+                <input type="file" id="logo-upload" accept="image/*
